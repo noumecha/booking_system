@@ -1,0 +1,34 @@
+booking_system.settings_form:
+  title: 'booking_system'
+  description: 'Configure booking_system.'
+  parent: system.admin_config_system
+  route_name: booking_system.settings_form
+  weight: 10
+
+# Booking system date menu items definition
+entity.booking_system_date.collection:
+  title: 'Booking system date list'
+  route_name: entity.booking_system_date.collection
+  description: 'List Booking system date entities'
+  parent: system.admin_structure
+  weight: 100
+
+booking_system_date.admin.structure.settings:
+  title: 'Booking system date settings'
+  description: 'Configure Booking system date entities'
+  route_name: booking_system_date.settings
+  parent: system.admin_structure
+
+# Booking system schedule menu items definition
+entity.booking_system_schedule.collection:
+  title: 'Booking system schedule list'
+  route_name: entity.booking_system_schedule.collection
+  description: 'List Booking system schedule entities'
+  parent: system.admin_structure
+  weight: 100
+
+booking_system_schedule.admin.structure.settings:
+  title: 'Booking system schedule settings'
+  description: 'Configure Booking system schedule entities'
+  route_name: booking_system_schedule.settings
+  parent: system.admin_structure

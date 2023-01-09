@@ -1,0 +1,66 @@
+administer booking_system configuration:
+  title: 'Administer booking_system configuration'
+  description: 'Optional description.'
+  restrict access: true
+add booking system date entities:
+  title: 'Create new Booking system date entities'
+
+administer booking system date entities:
+  title: 'Administer Booking system date entities'
+  description: 'Allow to access the administration form to configure Booking system date entities.'
+  restrict access: true
+
+delete booking system date entities:
+  title: 'Delete Booking system date entities'
+
+edit booking system date entities:
+  title: 'Edit Booking system date entities'
+
+view published booking system date entities:
+  title: 'View published Booking system date entities'
+
+view unpublished booking system date entities:
+  title: 'View unpublished Booking system date entities'
+
+view all booking system date revisions:
+  title: 'View all Booking system date revisions'
+
+revert all booking system date revisions:
+  title: 'Revert all Booking system date revisions'
+  description: 'Role requires permission <em>view Booking system date revisions</em> and <em>edit rights</em> for booking system date entities in question or <em>administer booking system date entities</em>.'
+
+delete all booking system date revisions:
+  title: 'Delete all revisions'
+  description: 'Role requires permission to <em>view Booking system date revisions</em> and <em>delete rights</em> for booking system date entities in question or <em>administer booking system date entities</em>.'
+
+add booking system schedule entities:
+  title: 'Create new Booking system schedule entities'
+
+administer booking system schedule entities:
+  title: 'Administer Booking system schedule entities'
+  description: 'Allow to access the administration form to configure Booking system schedule entities.'
+  restrict access: true
+
+delete booking system schedule entities:
+  title: 'Delete Booking system schedule entities'
+
+edit booking system schedule entities:
+  title: 'Edit Booking system schedule entities'
+
+view published booking system schedule entities:
+  title: 'View published Booking system schedule entities'
+
+view unpublished booking system schedule entities:
+  title: 'View unpublished Booking system schedule entities'
+
+view all booking system schedule revisions:
+  title: 'View all Booking system schedule revisions'
+
+revert all booking system schedule revisions:
+  title: 'Revert all Booking system schedule revisions'
+  description: 'Role requires permission <em>view Booking system schedule revisions</em> and <em>edit rights</em> for booking system schedule entities in question or <em>administer booking system schedule entities</em>.'
+
+delete all booking system schedule revisions:
+  title: 'Delete all revisions'
+  description: 'Role requires permission to <em>view Booking system schedule revisions</em> and <em>delete rights</em> for booking system schedule entities in question or <em>administer booking system schedule entities</em>.'
+

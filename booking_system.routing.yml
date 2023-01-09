@@ -1,0 +1,15 @@
+booking_system.example:
+  path: '/booking-system/example'
+  defaults:
+    _title: 'Example'
+    _controller: '\Drupal\booking_system\Controller\BookingSystemController::build'
+  requirements:
+    _permission: 'access content'
+
+booking_system.settings_form:
+  path: '/admin/config/system/booking-system'
+  defaults:
+    _title: 'booking_system settings'
+    _form: 'Drupal\booking_system\Form\SettingsForm'
+  requirements:
+    _permission: 'administer booking_system configuration'

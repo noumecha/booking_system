@@ -1,0 +1,52 @@
+# Booking system date routing definition
+booking_system_date.settings_tab:
+  route_name: booking_system_date.settings
+  title: 'Settings'
+  base_route: booking_system_date.settings
+
+entity.booking_system_date.canonical:
+  route_name: entity.booking_system_date.canonical
+  base_route: entity.booking_system_date.canonical
+  title: 'View'
+
+entity.booking_system_date.edit_form:
+  route_name: entity.booking_system_date.edit_form
+  base_route: entity.booking_system_date.canonical
+  title: 'Edit'
+
+entity.booking_system_date.version_history:
+  route_name: entity.booking_system_date.version_history
+  base_route: entity.booking_system_date.canonical
+  title: 'Revisions'
+
+entity.booking_system_date.delete_form:
+  route_name:  entity.booking_system_date.delete_form
+  base_route:  entity.booking_system_date.canonical
+  title: Delete
+  weight: 10
+# Booking system schedule routing definition
+booking_system_schedule.settings_tab:
+  route_name: booking_system_schedule.settings
+  title: 'Settings'
+  base_route: booking_system_schedule.settings
+
+entity.booking_system_schedule.canonical:
+  route_name: entity.booking_system_schedule.canonical
+  base_route: entity.booking_system_schedule.canonical
+  title: 'View'
+
+entity.booking_system_schedule.edit_form:
+  route_name: entity.booking_system_schedule.edit_form
+  base_route: entity.booking_system_schedule.canonical
+  title: 'Edit'
+
+entity.booking_system_schedule.version_history:
+  route_name: entity.booking_system_schedule.version_history
+  base_route: entity.booking_system_schedule.canonical
+  title: 'Revisions'
+
+entity.booking_system_schedule.delete_form:
+  route_name:  entity.booking_system_schedule.delete_form
+  base_route:  entity.booking_system_schedule.canonical
+  title: Delete
+  weight: 10

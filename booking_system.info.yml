@@ -1,0 +1,5 @@
+name: booking_system
+type: module
+description: &quot;for making reservation&quot;
+package: Custom
+core_version_requirement: ^9 || ^10

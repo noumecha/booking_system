@@ -1,0 +1,22 @@
+{#
+/**
+ * @file booking_system_schedule.html.twig
+ * Default theme implementation to present Booking system schedule data.
+ *
+ * This template is used when viewing Booking system schedule pages.
+ *
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ * - attributes: HTML attributes for the container element.
+ *
+ * @see template_preprocess_booking_system_schedule()
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{ attributes.addClass('booking_system_schedule') }}>
+  {% if content %}
+    {{- content -}}
+  {% endif %}
+</div>
