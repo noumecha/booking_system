@@ -9,6 +9,7 @@ use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityPublishedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\user\UserInterface;
 
 /**
@@ -247,50 +248,60 @@ class BookingSystemDate extends EditorialContentEntityBase implements BookingSys
       ->setDisplayConfigurable('view', TRUE)
       ->setRequired(TRUE);
     # heure de debut
-    $fields['nom_prenom'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Nom & Prenom'))
-      ->setDescription(t('The name of the Booking system date entity.'))
-      ->setRevisionable(TRUE)
-      ->setSettings([
-        'max_length' => 50,
-        'text_processing' => 0,
-      ])
-      ->setDefaultValue('')
+    $fields['start_hour'] = BaseFieldDefinition::create('daterange')
+      ->setLabel(t('Heure de debut'))
+      ->setDescription(t('Définir l\'heure de debut de la plage'))
+      ->setRevisionable(FALSE)
       ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
-        'weight' => -4,
-      ])
-      ->setDisplayOptions('form', [
-        'type' => 'string_textfield',
-        'weight' => -4,
+        'weight' => 0,
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE)
-      ->setRequired(TRUE);
+      ->setDisplayOptions('form', [
+        'type' => 'dis_hours_date_time_widget',
+        'weight' => 0,
+      ])
+      ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
+      //->setRequired(TRUE);
     # heure de fin
-    $fields['booking_date'] = BaseFieldDefinition::create('daterange')
-      ->setLabel(t('Booking Date'))
-      ->setDescription(t('The date of the Booking system date entity.'))
-      ->setRevisionable(TRUE)
-      ->setCardinality(-1)
+    $fields['end_hour'] = BaseFieldDefinition::create('daterange')
+      ->setLabel(t('Heure de fin'))
+      ->setDescription(t('Définir l\'heure de fin de la plage'))
+      ->setRevisionable(FALSE)
       ->setSettings([
-        'max_length' => 50,
-        'text_processing' => 0,
+        'datetime_type' => 'date',
       ])
-      ->setDefaultValue('')
       ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
-        'weight' => -4,
-      ])
-      ->setDisplayOptions('form', [
-        'type' => 'string_textfield',
-        'weight' => -4,
+        'weight' => 0,
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE)
-      ->setRequired(TRUE);
+      ->setDisplayOptions('form', [
+        'type' => 'dis_hours_date_time_widget',
+        'weight' => 0,
+      ])
+      ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
+      //->setRequired(TRUE);
+    # intervalle de temps entre les plages
+    $fields['time_interval'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t('time_interval'))
+      ->setDescription(t('Intervalle de temps entre deux plage horaire'))
+      ->setSettings([
+          'min' => 1,
+          'max' => 60
+      ])
+      ->setDefaultValue(NULL)
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'number_unformatted',
+        'weight' => -4,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('form', TRUE);
     $fields['status']->setDescription(t('A boolean indicating whether the Booking system date is published.'))
       ->setDisplayOptions('form', [
         'type' => 'boolean_checkbox',

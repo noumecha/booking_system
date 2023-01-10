@@ -1,6 +1,8 @@
 <?php
 
 namespace Drupal\booking_system\Controller;
+use Stephane888\DrupalUtility\HttpResponse;
+use Stephane888\Debug\ExceptionExtractMessage;
 
 use Drupal\Core\Controller\ControllerBase;
 
@@ -21,5 +23,20 @@ class BookingSystemController extends ControllerBase {
 
     return $build;
   }
-
+  /**
+   * 
+   * creating dates()
+   * 
+   */
+  public function dates() {
+    try {
+      $datas = [];
+      return HttpResponse::response($datas);
+    } catch (\Exception $e) {
+      $errors = ExceptionExtractMessage::errorAll($e);
+      $this->getLogger('booking_system')->critical(ExceptionExtractMessage::errorAllToString($e));
+      return HttpResponse::response($errors, 400, $e->getMessage());
+    }
+  }
+  
 }
