@@ -14,6 +14,11 @@ use Drupal\user\UserInterface;
 /**
  * Defines the Booking system date entity.
  *
+ * Cette entité est utiliser pour stocker les informations suivantes:
+ *  + heure_de_debut
+ *  + heure_de_fin
+ *  + intervalle de temps qui sépare les différentes pages
+ *
  * @ingroup booking_system
  *
  * @ContentEntityType(
@@ -241,7 +246,51 @@ class BookingSystemDate extends EditorialContentEntityBase implements BookingSys
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE)
       ->setRequired(TRUE);
-
+    # heure de debut
+    $fields['nom_prenom'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Nom & Prenom'))
+      ->setDescription(t('The name of the Booking system date entity.'))
+      ->setRevisionable(TRUE)
+      ->setSettings([
+        'max_length' => 50,
+        'text_processing' => 0,
+      ])
+      ->setDefaultValue('')
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'string',
+        'weight' => -4,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'string_textfield',
+        'weight' => -4,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE)
+      ->setRequired(TRUE);
+    # heure de fin
+    $fields['booking_date'] = BaseFieldDefinition::create('daterange')
+      ->setLabel(t('Booking Date'))
+      ->setDescription(t('The date of the Booking system date entity.'))
+      ->setRevisionable(TRUE)
+      ->setCardinality(-1)
+      ->setSettings([
+        'max_length' => 50,
+        'text_processing' => 0,
+      ])
+      ->setDefaultValue('')
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'string',
+        'weight' => -4,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'string_textfield',
+        'weight' => -4,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE)
+      ->setRequired(TRUE);
     $fields['status']->setDescription(t('A boolean indicating whether the Booking system date is published.'))
       ->setDisplayOptions('form', [
         'type' => 'boolean_checkbox',
