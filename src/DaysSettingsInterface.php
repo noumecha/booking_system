@@ -13,10 +13,10 @@ namespace Drupal\booking_system;
  * Defines an interface for days configuration.
  */
 interface DaysSettingsInterface /*extends PluginInspectionInterface*/ {
-  const jours = [
+  const DAYS = [
     [
       'label' => 'Dimanche',
-      'status' => false, // status pour le jour
+      'status' => true, // status pour le jour
       'periodes' => [
         [
         'label' => 'Petit déjeuné',
@@ -56,7 +56,7 @@ interface DaysSettingsInterface /*extends PluginInspectionInterface*/ {
     [
       'label' => 'Lundi',
       'text' => 'noumel',
-      'status' => false, // status pour le jour
+      'status' => true, // status pour le jour
       'periodes' => [
         [
         'label' => 'Petit déjeuné',
@@ -95,7 +95,7 @@ interface DaysSettingsInterface /*extends PluginInspectionInterface*/ {
     ],
     [
       'label' => 'Mardi',
-      'status' => false, // status pour le jour
+      'status' => true, // status pour le jour
       'periodes' => [
         [
         'label' => 'Petit déjeuné',
@@ -134,7 +134,7 @@ interface DaysSettingsInterface /*extends PluginInspectionInterface*/ {
     ],
     [
       'label' => 'Mercredi',
-      'status' => false, // status pour le jour
+      'status' => true, // status pour le jour
       'periodes' => [
         [
         'label' => 'Petit déjeuné',
@@ -173,7 +173,7 @@ interface DaysSettingsInterface /*extends PluginInspectionInterface*/ {
     ],
     [
       'label' => 'Jeudi',
-      'status' => false, // status pour le jour
+      'status' => true, // status pour le jour
       'periodes' => [
         [
         'label' => 'Petit déjeuné',
@@ -212,7 +212,7 @@ interface DaysSettingsInterface /*extends PluginInspectionInterface*/ {
     ],
     [
       'label' => 'Vendredi',
-      'status' => false, // status pour le jour
+      'status' => true, // status pour le jour
       'periodes' => [
         [
         'label' => 'Petit déjeuné',
@@ -251,7 +251,7 @@ interface DaysSettingsInterface /*extends PluginInspectionInterface*/ {
     ],
     [
       'label' => 'Samedi',
-      'status' => false, // status pour le jour
+      'status' => true, // status pour le jour
       'periodes' => [
         [
         'label' => 'Petit déjeuné',
