@@ -32,7 +32,7 @@ class SettingsForm extends ConfigFormBase implements DaysSettingsInterface {
     $config = $this->config('booking_system.settings')->getRawData();
     //dump($config);
     /* You will need additional form elements for your custom properties. */
-    $jours = \Drupal\booking_system\DaysSettingsInterface::jours;
+    $jours = \Drupal\booking_system\DaysSettingsInterface::DAYS;
     //dump($jours);
     /*if (!empty($this->config('booking_system.settings')->get('jours'))) {
       $jours = $this->config('booking_system.settings')->get('jours');
