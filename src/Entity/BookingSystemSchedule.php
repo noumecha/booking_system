@@ -9,6 +9,7 @@ use Drupal\Core\Entity\RevisionableInterface;
 use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityPublishedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\user\UserInterface;
 
 /**
@@ -53,11 +54,11 @@ use Drupal\user\UserInterface;
  *     "langcode" = "langcode",
  *     "published" = "status",
  *   },
-*   revision_metadata_keys = {
-*     "revision_user" = "revision_uid",
-*     "revision_created" = "revision_timestamp",
-*     "revision_log_message" = "revision_log"
-*   },
+ *   revision_metadata_keys = {
+ *     "revision_user" = "revision_uid",
+ *     "revision_created" = "revision_timestamp",
+ *     "revision_log_message" = "revision_log"
+ *   },
  *   links = {
  *     "canonical" = "/admin/structure/booking_system_schedule/{booking_system_schedule}",
  *     "add-form" = "/admin/structure/booking_system_schedule/add",
@@ -73,7 +74,8 @@ use Drupal\user\UserInterface;
  *   field_ui_base_route = "booking_system_schedule.settings"
  * )
  */
-class BookingSystemSchedule extends EditorialContentEntityBase implements BookingSystemScheduleInterface {
+class BookingSystemSchedule extends EditorialContentEntityBase implements BookingSystemScheduleInterface
+{
 
   use EntityChangedTrait;
   use EntityPublishedTrait;
@@ -81,7 +83,8 @@ class BookingSystemSchedule extends EditorialContentEntityBase implements Bookin
   /**
    * {@inheritdoc}
    */
-  public static function preCreate(EntityStorageInterface $storage_controller, array &$values) {
+  public static function preCreate(EntityStorageInterface $storage_controller, array &$values)
+  {
     parent::preCreate($storage_controller, $values);
     $values += [
       'user_id' => \Drupal::currentUser()->id(),
@@ -91,13 +94,13 @@ class BookingSystemSchedule extends EditorialContentEntityBase implements Bookin
   /**
    * {@inheritdoc}
    */
-  protected function urlRouteParameters($rel) {
+  protected function urlRouteParameters($rel)
+  {
     $uri_route_parameters = parent::urlRouteParameters($rel);
 
     if ($rel === 'revision_revert' && $this instanceof RevisionableInterface) {
       $uri_route_parameters[$this->getEntityTypeId() . '_revision'] = $this->getRevisionId();
-    }
-    elseif ($rel === 'revision_delete' && $this instanceof RevisionableInterface) {
+    } elseif ($rel === 'revision_delete' && $this instanceof RevisionableInterface) {
       $uri_route_parameters[$this->getEntityTypeId() . '_revision'] = $this->getRevisionId();
     }
 
@@ -107,7 +110,8 @@ class BookingSystemSchedule extends EditorialContentEntityBase implements Bookin
   /**
    * {@inheritdoc}
    */
-  public function preSave(EntityStorageInterface $storage) {
+  public function preSave(EntityStorageInterface $storage)
+  {
     parent::preSave($storage);
 
     foreach (array_keys($this->getTranslationLanguages()) as $langcode) {
@@ -129,14 +133,16 @@ class BookingSystemSchedule extends EditorialContentEntityBase implements Bookin
   /**
    * {@inheritdoc}
    */
-  public function getName() {
+  public function getName()
+  {
     return $this->get('name')->value;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setName($name) {
+  public function setName($name)
+  {
     $this->set('name', $name);
     return $this;
   }
@@ -144,14 +150,16 @@ class BookingSystemSchedule extends EditorialContentEntityBase implements Bookin
   /**
    * {@inheritdoc}
    */
-  public function getCreatedTime() {
+  public function getCreatedTime()
+  {
     return $this->get('created')->value;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setCreatedTime($timestamp) {
+  public function setCreatedTime($timestamp)
+  {
     $this->set('created', $timestamp);
     return $this;
   }
@@ -159,21 +167,24 @@ class BookingSystemSchedule extends EditorialContentEntityBase implements Bookin
   /**
    * {@inheritdoc}
    */
-  public function getOwner() {
+  public function getOwner()
+  {
     return $this->get('user_id')->entity;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getOwnerId() {
+  public function getOwnerId()
+  {
     return $this->get('user_id')->target_id;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setOwnerId($uid) {
+  public function setOwnerId($uid)
+  {
     $this->set('user_id', $uid);
     return $this;
   }
@@ -181,7 +192,8 @@ class BookingSystemSchedule extends EditorialContentEntityBase implements Bookin
   /**
    * {@inheritdoc}
    */
-  public function setOwner(UserInterface $account) {
+  public function setOwner(UserInterface $account)
+  {
     $this->set('user_id', $account->id());
     return $this;
   }
@@ -189,7 +201,8 @@ class BookingSystemSchedule extends EditorialContentEntityBase implements Bookin
   /**
    * {@inheritdoc}
    */
-  public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
+  public static function baseFieldDefinitions(EntityTypeInterface $entity_type)
+  {
     $fields = parent::baseFieldDefinitions($entity_type);
 
     // Add the published field.
@@ -242,6 +255,50 @@ class BookingSystemSchedule extends EditorialContentEntityBase implements Bookin
       ->setDisplayConfigurable('view', TRUE)
       ->setRequired(TRUE);
 
+    $fields['discount'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t('Discount'))
+      ->setDescription(t('The amount of the discount'))
+      ->setRevisionable(TRUE)
+      ->setSettings([
+        'min' => 0,
+        'max' => 80,
+      ])
+      ->setDefaultValue('')
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE)
+      ->setRequired(TRUE);
+
+    $fields['dateRange'] = BaseFieldDefinition::create('daterange')
+      ->setLabel(t('Date Range'))
+      ->setDescription(t('The range date for the offer'))
+      ->setRevisionable(TRUE)
+      ->setSettings([
+        'datetime_type' => 'date',
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE)
+      ->setRequired(TRUE);
+
+    $fields['time'] = BaseFieldDefinition::create('daterange')
+      ->setLabel(t('Time interval'))
+      ->setDescription(t('The range time for the offer'))
+      ->setRevisionable(TRUE)
+      ->setDisplayOptions('view', array(
+        'label' => 'above',
+        'type' => 'string',
+        'weight' => -4,
+      ))
+      ->setDisplayOptions('form', array(
+        'type' => 'daterange_default',
+        'weight' => -4,
+      ))
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE)
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE)
+      ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED)
+      ->setRequired(FALSE);
+
     $fields['status']->setDescription(t('A boolean indicating whether the Booking system schedule is published.'))
       ->setDisplayOptions('form', [
         'type' => 'boolean_checkbox',
@@ -265,5 +322,4 @@ class BookingSystemSchedule extends EditorialContentEntityBase implements Bookin
 
     return $fields;
   }
-
 }
