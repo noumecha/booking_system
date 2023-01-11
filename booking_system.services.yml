@@ -1,0 +1,4 @@
+services:
+  booking_system.manager:
+    class: Drupal\booking_system\Service\BookingManagerService
+    arguments: ['@current_user', '@entity_type.manager']

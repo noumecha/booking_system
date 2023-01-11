@@ -133,6 +133,59 @@ class BookingSystemSchedule extends EditorialContentEntityBase implements Bookin
   /**
    * {@inheritdoc}
    */
+  public function getDiscount()
+  {
+    return $this->get('discount')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setDiscount($discount)
+  {
+    $this->set('discount', $discount);
+    return $this;
+  }
+
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getDateRange()
+  {
+    return $this->get('dateRange')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setDateRange($dateRange)
+  {
+    $this->set('dateRange', $dateRange);
+    return $this;
+  }
+
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getTime()
+  {
+    return $this->get('time')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setTime($time)
+  {
+    $this->set('time', $time);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getName()
   {
     return $this->get('name')->value;

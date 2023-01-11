@@ -20,6 +20,63 @@ interface BookingSystemScheduleInterface extends ContentEntityInterface, Revisio
    */
 
   /**
+   * Gets the Booking system schedule discount.
+   *
+   * @return string
+   *   Name of the Booking system schedule.
+   */
+  public function getDiscount();
+
+  /**
+   * Sets the Booking system schedule discount.
+   *
+   * @param string $discount
+   *   The Booking system schedule discount.
+   *
+   * @return \Drupal\booking_system\Entity\BookingSystemScheduleInterface
+   *   The called Booking system schedule entity.
+   */
+  public function setDiscount($discount);
+
+  /**
+   * Gets the Booking system schedule date range.
+   *
+   * @return string
+   *   Name of the Booking system schedule.
+   */
+  public function getDateRange();
+
+  /**
+   * Sets the Booking system schedule date range.
+   *
+   * @param string $dateRange
+   *   The Booking system schedule date range.
+   *
+   * @return \Drupal\booking_system\Entity\BookingSystemScheduleInterface
+   *   The called Booking system schedule entity.
+   */
+  public function setDateRange($dateRange);
+
+  /**
+   * Gets the Booking system schedule time.
+   *
+   * @return string
+   *   Name of the Booking system schedule.
+   */
+  public function getTime();
+
+  /**
+   * Sets the Booking system schedule time.
+   *
+   * @param string $time
+   *   The Booking system schedule discount.
+   *
+   * @return \Drupal\booking_system\Entity\BookingSystemScheduleInterface
+   *   The called Booking system schedule entity.
+   */
+  public function setTime($time);
+
+  /**
    * Gets the Booking system schedule name.
    *
    * @return string
