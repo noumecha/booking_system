@@ -125,7 +125,7 @@ class SettingsForm extends ConfigFormBase implements DaysSettingsInterface {
     ];
     $form['number_of_days'] = [
       '#type' => 'number',
-      '#title' => "Nombre de mois à afficher",
+      '#title' => "Nombre de jours à afficher",
       '#default_value' => isset($config['number_of_days']) ? $config['number_of_days'] : 60
     ];
     return parent::buildForm($form, $form_state);
