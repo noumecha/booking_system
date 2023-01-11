@@ -270,9 +270,7 @@ class BookingSystemDate extends EditorialContentEntityBase implements BookingSys
       ->setLabel(t('Heure de fin'))
       ->setDescription(t('Définir l\'heure de fin de la plage'))
       ->setRevisionable(FALSE)
-      ->setSettings([
-        'datetime_type' => 'date',
-      ])
+      //->setSettings(['datetime_type' => 'date',])
       ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
@@ -288,19 +286,22 @@ class BookingSystemDate extends EditorialContentEntityBase implements BookingSys
       //->setRequired(TRUE);
     # intervalle de temps entre les plages
     $fields['time_interval'] = BaseFieldDefinition::create('integer')
-      ->setLabel(t('time_interval'))
+      ->setLabel(t('Time interval'))
       ->setDescription(t('Intervalle de temps entre deux plage horaire'))
       ->setSettings([
           'min' => 1,
           'max' => 60
       ])
-      ->setDefaultValue(NULL)
       ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'number_unformatted',
-        'weight' => -4,
+        'weight' => 0,
       ])
-      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayOptions('form', [
+        'type' => 'number_unformatted',
+        'weight' => 0,
+      ])
+      ->setDisplayConfigurable('view', TRUE)
       ->setDisplayConfigurable('form', TRUE);
     $fields['status']->setDescription(t('A boolean indicating whether the Booking system date is published.'))
       ->setDisplayOptions('form', [

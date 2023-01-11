@@ -58,8 +58,19 @@ class BookingSystemController extends ControllerBase
       return HttpResponse::response($data);
     } catch (\Exception $e) {
       $errors = ExceptionExtractMessage::errorAll($e);
-      $this->getLogger('booking_system')->critical(ExceptionExtractMessage::errorAllToString($e));
+      $this->getLogger('boobooking_system.settingsking_system')->critical(ExceptionExtractMessage::errorAllToString($e));
       return HttpResponse::response($errors, 400, $e->getMessage());
     }
   }
+  /**
+   * @inheritdoc
+   */
+  public function default() {
+    $build['content'] = [
+      '#type' => 'item',
+      '#markup' => $this->t('Starting default page for testing purpose!'),
+    ];
+    return $build;
+  }
+
 }
