@@ -38,5 +38,15 @@ class BookingSystemController extends ControllerBase {
       return HttpResponse::response($errors, 400, $e->getMessage());
     }
   }
+  /**
+   * @inheritdoc
+   */
+  public function default() {
+    $build['content'] = [
+      '#type' => 'item',
+      '#markup' => $this->t('Starting default page for testing purpose!'),
+    ];
+    return $build;
+  }
   
 }
