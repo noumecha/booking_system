@@ -13,7 +13,7 @@ namespace Drupal\booking_system;
  * Defines an interface for days configuration.
  */
 interface DaysSettingsInterface /*extends PluginInspectionInterface*/ {
-  const jours = [
+  const DAYS = [
     [
       'label' => 'Dimanche',
       'status' => true, // status pour le jour
