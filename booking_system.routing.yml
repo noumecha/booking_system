@@ -5,10 +5,11 @@ booking_system.example:
     _controller: '\Drupal\booking_system\Controller\BookingSystemController::build'
   requirements:
     _permission: 'access content'
+# for Booking System Date Controller
 booking_system.date:
   path: '/booking-system/dates'
   defaults:
-    _title: 'Date'
+    _title: 'Booking System Date'
     _controller: '\Drupal\booking_system\Controller\BookingSystemController::dates'
   requirements:
     _permission: 'access content'
@@ -20,10 +21,11 @@ booking_system.simple_page:
     _controller: '\Drupal\booking_system\Form\SettingsForm'
   requirements:
     _permission: 'access content'
+# 
 booking_system.settings_form:
   path: '/admin/config/system/booking-system'
   defaults:
-    _title: 'booking_system settings'
+    _title: 'Booking System Settings'
     _form: 'Drupal\booking_system\Form\SettingsForm'
   requirements:
     _permission: 'administer booking_system configuration'

@@ -30,7 +30,7 @@ class SettingsForm extends ConfigFormBase implements DaysSettingsInterface {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('booking_system.settings')->getRawData();
-    dump($config);
+    //dump($config);
     /* You will need additional form elements for your custom properties. */
     $jours = \Drupal\booking_system\DaysSettingsInterface::jours;
     //dump($jours);
@@ -55,7 +55,7 @@ class SettingsForm extends ConfigFormBase implements DaysSettingsInterface {
       $form['jours'][$i]['label'] = [
         "#type" => 'textfield',
         '#title' => 'Label',
-        '#default_value' => $val['label']
+        '#default_value' => isset($config['jours'][$i]['label']) ? $config['jours'][$i]['label'] : $val['label']
       ];
       // status
       $form['jours'][$i]['status'] = [
@@ -83,13 +83,13 @@ class SettingsForm extends ConfigFormBase implements DaysSettingsInterface {
         $form['jours'][$i]['periodes'][$j]['label'] = [
           "#type" => 'textfield',
           '#title' => 'Label',
-          '#default_value' => $period['label']
+          '#default_value' => isset($config['jours'][$i]['periodes'][$j]['label']) ? $config['jours'][$i]['periodes'][$j]['label'] : $period['label']
         ];
         // status
         $form['jours'][$i]['periodes'][$j]['status'] = [
           "#type" => 'checkbox',
           '#title' => 'Status',
-          '#default_value' => $period['status']
+          '#default_value' => isset($config['jours'][$i]['periodes'][$j]['status']) ? $config['jours'][$i]['periodes'][$j]['status'] : $period['status']
         ];
         // heure de but
         $form['jours'][$i]['periodes'][$j]['h_d__m_d'] = [
@@ -107,25 +107,26 @@ class SettingsForm extends ConfigFormBase implements DaysSettingsInterface {
         $form['jours'][$i]['periodes'][$j]['decallage']  = [
           '#type' => 'number',
           '#title' => "Valeur de la reduction",
-          '#default_value' => $period['decallage']
+          '#default_value' => isset($config['jours'][$i]['periodes'][$j]['decallages']) ? $config['jours'][$i]['periodes'][$j]['decallage'] : $period['decallage']
         ];
         // intervalle : 
         $form['jours'][$i]['periodes'][$j]['intervalle']  = [
           '#type' => 'number',
           '#title' => "Valeur de la reduction",
-          '#default_value' => $period['intervalle']
+          '#default_value' => isset($config['jours'][$i]['periodes'][$j]['intervalle']) ? $config['jours'][$i]['periodes'][$j]['intervalle'] : $$period['intervalle']
         ];
       }
     }
+    // isset($config['jours'][$i]['status']) ? $config['jours'][$i]['status'] : $val['status']
     $form['reduction'] = [
       '#type' => 'number',
       '#title' => "Valeur de la reduction",
-      '#default_value' => $this->config('booking_system.settings')->get('reduction')
+      '#default_value' => isset($config['reduction']) ? $config['reduction'] : 10
     ];
     $form['number_of_days'] = [
       '#type' => 'number',
       '#title' => "Nombre de mois à afficher",
-      '#default_value' => $this->config('booking_system.settings')->get('number_of_days')
+      '#default_value' => isset($config['number_of_days']) ? $config['number_of_days'] : 60
     ];
     return parent::buildForm($form, $form_state);
   }
