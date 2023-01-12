@@ -23,8 +23,27 @@ class BookingManagerService extends ControllerBase
 
   public function generateDates()
   {
-dd($this->config('booking_system.settings')->getRawData());
-    $data = $this->em->getStorage('booking_system_date')->loadMultiple(); //getQuery permet de construire une requête
+    $data = [];
+    $config = $this->config('booking_system.settings')->getRawData();
+    $data["globalDiscount"] = $config["reduction"];
+    $data["numberOfDisplayedDays"] = $config["number_of_days"];
+    $disabledDaysOfTheWeek = $this->getDisabledDaysOfTheWeek($config["jours"]);
+    $data["disabledDays"] = $disabledDaysOfTheWeek;
+
+    $disabledDays = $this->em->getStorage('booking_system_date')->loadMultiple(); //getQuery permet de construire une requête
     return $data;
+  }
+
+  public function getDisabledDaysOfTheWeek(array $days)
+  {
+    $disabledDays = [];
+    foreach ($days as $day) {
+      $i = 0;
+      if ($day["status"] == 0) {
+        $disabledDays[] = $i;
+      }
+      ++$i;
+    }
+    return $disabledDays;
   }
 }
