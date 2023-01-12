@@ -282,9 +282,18 @@ class BookingSystemDate extends EditorialContentEntityBase implements BookingSys
         'weight' => 0,
       ]);
     # defining the period : 
-    $filds['period'] = BaseFieldDefinition::create('')
-      ->setLabel('Period')
-      ->setDescription(t('Modifier la Période '));
+    $fields['period'] = BaseFieldDefinition::create('period_type')
+    ->setLabel(t('Modifier la Période '))
+    ->setDisplayOptions('form', [
+      'type' => '',
+      'weight' => 0
+    ])
+    ->setDisplayConfigurable('form', TRUE)
+    ->setDisplayConfigurable('view', TRUE)
+    ->setSetting('target_type', 'paragraph')
+    ->setSetting('handler', 'default')
+    ->setTranslatable(false)
+    ->setSetting('allow_duplicate', true);
     # discount
     $fields['discount'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Discount'))
