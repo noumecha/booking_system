@@ -60,7 +60,7 @@ class SettingsForm extends ConfigFormBase implements DaysSettingsInterface {
       // status
       $form['jours'][$i]['status'] = [
         "#type" => 'checkbox',
-        '#title' => 'Status',maxDate
+        '#title' => 'Status',
         '#default_value' => isset($config['jours'][$i]['status']) ? $config['jours'][$i]['status'] : $val['status']
       ];
       // periodes

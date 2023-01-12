@@ -26,6 +26,7 @@ class PeriodFieldType extends FieldItemBase
 {
   /**
    * {@inheritdoc}
+   * set the king of data type that the field cant contain
    */
   public static function schema(FieldStorageDefinitionInterface $field_definition) {
     return [
@@ -61,6 +62,7 @@ class PeriodFieldType extends FieldItemBase
 
   /**
    * {@inheritdoc}
+   * set properties basic configuration
    */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
     # heure de debut
