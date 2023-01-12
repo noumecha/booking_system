@@ -8,6 +8,8 @@ use Stephane888\Debug\ExceptionExtractMessage;
 
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Returns responses for booking_system routes.
@@ -45,9 +47,10 @@ class BookingSystemController extends ControllerBase
 
     return $build;
   }
+
   /**
    *
-   * creating dates()
+   * Give the days to disable
    *
    */
   public function dates()
@@ -62,15 +65,32 @@ class BookingSystemController extends ControllerBase
       return HttpResponse::response($errors, 400, $e->getMessage());
     }
   }
+
+  /**
+   *
+   * Give the differents schedule of a day
+   *
+   */
+  public function schedule($day)
+  {
+      $data = $this->manager->generateSchdules($day);
+      if (isset($data["error"])) {
+        return new JsonResponse($data, Response::HTTP_BAD_REQUEST);
+      }
+
+      return new JsonResponse($data, Response::HTTP_OK);
+  }
+
+
   /**
    * @inheritdoc
    */
-  public function default() {
+  public function default()
+  {
     $build['content'] = [
       '#type' => 'item',
       '#markup' => $this->t('Starting default page for testing purpose!'),
     ];
     return $build;
   }
-
 }

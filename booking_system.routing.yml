@@ -15,9 +15,9 @@ booking_system.date:
     _permission: 'access content'
 
 booking_system.date.schedule:
-  path: '/booking-system/dates/{day}/{month}'
+  path: '/booking-system/dates/{day}'
   defaults:
-    _title: 'Booking System Date'
+    _title: 'Booking System Day'
     _controller: '\Drupal\booking_system\Controller\BookingSystemController::schedule'
   requirements:
     _permission: 'access content'
