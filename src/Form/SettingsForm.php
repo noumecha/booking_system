@@ -60,7 +60,7 @@ class SettingsForm extends ConfigFormBase implements DaysSettingsInterface {
       // status
       $form['jours'][$i]['status'] = [
         "#type" => 'checkbox',
-        '#title' => 'Status',
+        '#title' => 'Status',maxDate
         '#default_value' => isset($config['jours'][$i]['status']) ? $config['jours'][$i]['status'] : $val['status']
       ];
       // periodes
@@ -69,7 +69,7 @@ class SettingsForm extends ConfigFormBase implements DaysSettingsInterface {
         '#title' => 'Configuration des périodes',
         '#tree' => TRUE
       ];
-      // boucles pour les periodes 
+      // boucles pour les periodes
       $periods = $jours[$i]['periodes'];
       //dump($periods);
       foreach ($periods as $j => $period) {
@@ -103,13 +103,13 @@ class SettingsForm extends ConfigFormBase implements DaysSettingsInterface {
           '#title' => 'Heure de fin',
           '#default_value' => $period['h_f'] . ':' . $period['m_f']
         ];
-        // decallage : 
+        // decallage :
         $form['jours'][$i]['periodes'][$j]['decallage']  = [
           '#type' => 'number',
           '#title' => "Valeur de la reduction",
           '#default_value' => isset($config['jours'][$i]['periodes'][$j]['decallages']) ? $config['jours'][$i]['periodes'][$j]['decallage'] : $period['decallage']
         ];
-        // intervalle : 
+        // intervalle :
         $form['jours'][$i]['periodes'][$j]['intervalle']  = [
           '#type' => 'number',
           '#title' => "Valeur de la reduction",
