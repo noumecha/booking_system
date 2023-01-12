@@ -14,13 +14,14 @@ booking_system.date:
   requirements:
     _permission: 'access content'
 
-booking_system.date.schedule:
-  path: '/booking-system/dates/{day}/{month}'
-  defaults:
-    _title: 'Booking System Date'
-    _controller: '\Drupal\booking_system\Controller\BookingSystemController::schedule'
-  requirements:
-    _permission: 'access content'
+# for Booking System schedule Controller
+# booking_system.date.schedule:
+#  path: '/booking-system/dates/{day}/{month}'
+#  defaults:
+#    _title: 'Booking System Date'
+#    _controller: '\Drupal\booking_system\Controller\BookingSystemController::schedule'
+#  requirements:
+#    _permission: 'access content'
 
 # for config pages
 booking_system.simple_page:
@@ -30,7 +31,7 @@ booking_system.simple_page:
     _controller: '\Drupal\booking_system\Form\SettingsForm'
   requirements:
     _permission: 'access content'
-#
+# for gobal config booking system
 booking_system.settings_form:
   path: '/admin/config/system/booking-system'
   defaults:

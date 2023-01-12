@@ -247,10 +247,11 @@ class BookingSystemDate extends EditorialContentEntityBase implements BookingSys
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE)
       ->setRequired(TRUE);
-    # heure de debut
-    $fields['start_hour'] = BaseFieldDefinition::create('daterange')
-      ->setLabel(t('Heure de debut'))
-      ->setDescription(t('Définir l\'heure de debut de la plage'))
+    # date de debut
+    $fields['start_date'] = BaseFieldDefinition::create('daterange')
+      ->setLabel(t('Date de debut'))
+      ->setDescription(t('Définir la date de debut de la plage'))
+      ->setSettings(['datetime_type' => 'date',])
       ->setRevisionable(FALSE)
       ->setDisplayOptions('view', [
         'label' => 'above',
@@ -262,15 +263,13 @@ class BookingSystemDate extends EditorialContentEntityBase implements BookingSys
       ->setDisplayOptions('form', [
         'type' => 'dis_hours_date_time_widget',
         'weight' => 0,
-      ])
-      ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
-      //->setRequired(TRUE);
-    # heure de fin
-    $fields['end_hour'] = BaseFieldDefinition::create('daterange')
-      ->setLabel(t('Heure de fin'))
-      ->setDescription(t('Définir l\'heure de fin de la plage'))
+      ]);
+    # date de fin
+    $fields['end_date'] = BaseFieldDefinition::create('daterange')
+      ->setLabel(t('Date de fin'))
+      ->setDescription(t('Définir la date de fin de la plage'))
       ->setRevisionable(FALSE)
-      //->setSettings(['datetime_type' => 'date',])
+      ->setSettings(['datetime_type' => 'date',])
       ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
@@ -281,16 +280,18 @@ class BookingSystemDate extends EditorialContentEntityBase implements BookingSys
       ->setDisplayOptions('form', [
         'type' => 'dis_hours_date_time_widget',
         'weight' => 0,
-      ])
-      ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
-      //->setRequired(TRUE);
-    # intervalle de temps entre les plages
-    $fields['time_interval'] = BaseFieldDefinition::create('integer')
-      ->setLabel(t('Time interval'))
-      ->setDescription(t('Intervalle de temps entre deux plage horaire'))
+      ]);
+    # defining the period : 
+    $filds['period'] = BaseFieldDefinition::create('')
+      ->setLabel('Period')
+      ->setDescription(t('Modifier la Période '));
+    # discount
+    $fields['discount'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t('Discount'))
+      ->setDescription(t('Modifier la reduction pour la date '))
       ->setSettings([
           'min' => 1,
-          'max' => 60
+          'max' => 20
       ])
       ->setDisplayOptions('view', [
         'label' => 'above',

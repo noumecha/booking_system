@@ -118,15 +118,23 @@ class SettingsForm extends ConfigFormBase implements DaysSettingsInterface {
       }
     }
     // isset($config['jours'][$i]['status']) ? $config['jours'][$i]['status'] : $val['status']
+    // define the reduction
     $form['reduction'] = [
       '#type' => 'number',
-      '#title' => "Valeur de la reduction",
+      '#title' => t("Valeur de la reduction"),
       '#default_value' => isset($config['reduction']) ? $config['reduction'] : 10
     ];
+    // define number of days
     $form['number_of_days'] = [
       '#type' => 'number',
-      '#title' => "Nombre de jours à afficher",
+      '#title' => t("Nombre de jours à afficher"),
       '#default_value' => isset($config['number_of_days']) ? $config['number_of_days'] : 60
+    ];
+    // define number of max persons
+    $form['number_of_persons'] = [
+      '#type' => 'number',
+      '#title' => t("Nombre de personnes maximal par table"),
+      '#default_value' => isset($config['number_of_persons']) ? $config['number_of_persons'] : 15
     ];
     return parent::buildForm($form, $form_state);
   }
@@ -149,6 +157,7 @@ class SettingsForm extends ConfigFormBase implements DaysSettingsInterface {
       ->set('jours', $form_state->getValue('jours'))
       ->set('reduction', $form_state->getValue('reduction'))
       ->set('number_of_days', $form_state->getValue('number_of_days'))
+      ->set('number_of_persons', $form_state->getValue('number_of_persons'))
       ->save();
     parent::submitForm($form, $form_state);
   }
