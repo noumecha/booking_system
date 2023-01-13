@@ -249,27 +249,10 @@ class BookingSystemDate extends EditorialContentEntityBase implements BookingSys
       ->setRequired(TRUE);
     # date de debut
     $fields['start_date'] = BaseFieldDefinition::create('daterange')
-      ->setLabel(t('Date de debut'))
-      ->setDescription(t('Définir la date de debut de la plage'))
+      ->setLabel(t('Date'))
+      ->setDescription(t('Définir la plage de date'))
       ->setSettings(['datetime_type' => 'date',])
       ->setRevisionable(FALSE)
-      ->setDisplayOptions('view', [
-        'label' => 'above',
-        'type' => 'string',
-        'weight' => 0,
-      ])
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE)
-      ->setDisplayOptions('form', [
-        'type' => 'dis_hours_date_time_widget',
-        'weight' => 0,
-      ]);
-    # date de fin
-    $fields['end_date'] = BaseFieldDefinition::create('daterange')
-      ->setLabel(t('Date de fin'))
-      ->setDescription(t('Définir la date de fin de la plage'))
-      ->setRevisionable(FALSE)
-      ->setSettings(['datetime_type' => 'date',])
       ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
@@ -283,24 +266,24 @@ class BookingSystemDate extends EditorialContentEntityBase implements BookingSys
       ]);
     # defining the period : 
     $fields['period'] = BaseFieldDefinition::create('period_type')
-    ->setLabel(t('Modifier la Période '))
-    ->setDisplayOptions('form', [
-      'type' => '',
-      'weight' => 0
-    ])
-    ->setDisplayConfigurable('form', TRUE)
-    ->setDisplayConfigurable('view', TRUE)
-    ->setSetting('target_type', 'paragraph')
-    ->setSetting('handler', 'default')
-    ->setTranslatable(false)
-    ->setSetting('allow_duplicate', true);
+      ->setLabel(t('Modifier la Période '))
+      ->setDisplayOptions('form', [
+        'type' => '',
+        'weight' => 0
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE)
+      ->setSetting('target_type', 'paragraph')
+      ->setSetting('handler', 'default')
+      ->setTranslatable(false)
+      ->setSetting('allow_duplicate', true);
     # discount
     $fields['discount'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Discount'))
       ->setDescription(t('Modifier la reduction pour la date '))
       ->setSettings([
           'min' => 1,
-          'max' => 20
+          'max' => 100
       ])
       ->setDisplayOptions('view', [
         'label' => 'above',
@@ -313,7 +296,10 @@ class BookingSystemDate extends EditorialContentEntityBase implements BookingSys
       ])
       ->setDisplayConfigurable('view', TRUE)
       ->setDisplayConfigurable('form', TRUE);
-    $fields['status']->setDescription(t('A boolean indicating whether the Booking system date is published.'))
+    # status
+    $fields['status'] = BaseFieldDefinition::create('boolean')
+      ->setLabel('Désactiver cette date')
+      ->setDescription(t('Cochez pour désactiver la date'))
       ->setDisplayOptions('form', [
         'type' => 'boolean_checkbox',
         'weight' => -3,

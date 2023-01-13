@@ -33,29 +33,26 @@ class PeriodFieldType extends FieldItemBase
     return [
       'columns' => [
         'start_hour' => [
-            'type' => 'int',
-            'unsigned' => FALSE,
-            'size' => 'normal'
+          'type' => 'varchar',
+          'not null' => FALSE,
+          'lenght' => '256'
         ],
         'end_hour' => [
-            'type' => 'int',
-            'unsigned' => FALSE,
-            'size' => 'normal'
+          'type' => 'varchar',
+          'not null' => FALSE,
+          'lenght' => '256'
         ],
         'intervalle' => [
-            'type' => 'text',
+            'type' => 'int',
             'size' => 'tiny',
-            'not null' => FALSE,
         ],
         'decallage' => [
             'type' => 'int',
             'size' => 'tiny',
-            'not null' => FALSE,
         ],
         'status' => [
-            'type' => 'boolean',
+            'type' => 'int',
             'size' => 'tiny',
-            'not null' => FALSE,
         ],
       ],
     ];
@@ -67,12 +64,12 @@ class PeriodFieldType extends FieldItemBase
    */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
     # heure de debut
-    $properties['start_hour'] = DataDefinition::create('integer')
+    $properties['start_hour'] = DataDefinition::create('string')
         ->setLabel(t('Heure de debut'))
         ->setDescription(t('Définir l\'heure de debut la periode'))
         ->setRequired(TRUE);
     # heure de fin
-    $properties['end_hour'] = DataDefinition::create('integer')
+    $properties['end_hour'] = DataDefinition::create('string')
         ->setLabel(t('Heure de fin'))
         ->setDescription(t('Définir l\'heure de fin la periode'))
         ->setRequired(TRUE);
@@ -81,7 +78,7 @@ class PeriodFieldType extends FieldItemBase
         ->setLabel(t('Boolean value'))
         ->setRequired(TRUE);
     # preriode interavalle // this guy need to have 2 subfields
-    $properties['intervalle'] = DataDefinition::create('string')
+    $properties['intervalle'] = DataDefinition::create('integer')
         ->setLabel(t('intervalle'))
         ->setDescription(t('Intervalle de temps entre les heures'))
         ->setRequired(TRUE);
@@ -101,9 +98,9 @@ class PeriodFieldType extends FieldItemBase
    */
   public static function generateSampleValue(FieldDefinitionInterface $field_definition) {
     $date = new \DateTime();
-    $values['start_hour'] = $date->getTimestamp();
-    $values['end_hour'] = $date->getTimestamp();
-    $values['status'] = true;
+    $values['start_hour'] = date('H:i', $date->getTimestamp());
+    $values['end_hour'] = date('H:i', $date->getTimestamp());
+    $values['status'] = false;
     $values['intervalle'] = 15;
     $values['decallage'] = 15;
     return $values;
