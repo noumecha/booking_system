@@ -2,13 +2,9 @@
 
 namespace Drupal\booking_system\Plugin\Field\FieldType;
 
-use Drupal\Component\Utility\Random;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\TypedData\DataDefinition;
 
 /**
@@ -98,9 +94,9 @@ class PeriodFieldType extends FieldItemBase
    * set the default value
    */
   public static function generateSampleValue(FieldDefinitionInterface $field_definition) {
-    $date = new \DateTime();
-    $values['start_hour'] = date('H:i', $date->getTimestamp());
-    $values['end_hour'] = date('H:i', $date->getTimestamp());
+    //$date = new \DateTime();
+    $values['start_hour'] = '7:00';
+    $values['end_hour'] = '8:00';
     $values['intervalle'] = 15;
     $values['decallage'] = 15;
     return $values;

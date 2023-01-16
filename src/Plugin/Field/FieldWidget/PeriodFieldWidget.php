@@ -48,27 +48,21 @@ use Drupal\Core\Form\FormStateInterface;
         //dump($element);
         $element['#type'] = 'details';
         $elts = $element;       
-        $date_type = 'none';
-        $time_type = 'time';
+        //$date_type = 'none';
+        //$time_type = 'time';
         if (!empty($element['#title_display']))
             unset($element['#title_display']);
         # period start time
-        $start_hour_value = isset($items[$delta]->start_hour) ? DrupalDateTime::createFromTimestamp($items[$delta]->start_hour) : '';
         $elts['start_hour'] = [
             '#title' => t($this->getSetting('label_start_hour')),
-            '#type' => 'datetime',
-            '#date_date_element' => $date_type,
-            '#date_time_element' => $time_type,
-            '#default_value' =>  $start_hour_value,
+            '#type' => 'textfield',
+            '#default_value' => isset($items[$delta]->start_hour) ? $items[$delta]->start_hour : '',
         ];
         # period end hour
-        $end_hour_value = isset($items[$delta]->end_hour) ? DrupalDateTime::createFromTimestamp($items[$delta]->end_hour) : '';
         $elts['end_hour'] = [
             '#title' => t($this->getSetting('label_end_hour')),
-            '#type' => 'datetime',
-            '#date_date_element' => $date_type, // none
-            '#date_time_element' => $time_type,
-            '#default_value' => $end_hour_value,
+            '#type' => 'textfield',
+            '#default_value' => isset($items[$delta]->end_hour) ? $items[$delta]->end_hour : '',
         ];
         # period status
         $elts['status'] = [
@@ -124,13 +118,11 @@ use Drupal\Core\Form\FormStateInterface;
         ];
         $element['start_hour'] = [
             '#type' => 'textfield',
-            '#date_time_format' => 'H:m',
             '#title' => $this->getSetting('label_start_hour'),
             '#default_value' => $this->getSetting('size'),
         ];
         $element['end_hour'] = [
             '#type' => 'textfield',
-            '#date_time_format' => 'H:m',
             '#title' => $this->getSetting('label_end_four'),
             '#default_value' => $this->getSetting('size'),
         ];
@@ -142,28 +134,21 @@ use Drupal\Core\Form\FormStateInterface;
      */
     function massageFormValues($values, $form, $form_state) {
         $vals = parent::massageFormValues($values, $form, $form_state);
+        dump($val['start_hour']);
         // format the hours
-        foreach ($vals as &$val) {
+        /*foreach ($vals as &$val) {
             if(!empty($val['start_hour'])) {
-                /**
-                 *
-                 * @var \Drupal\Core\Datetime\DrupalDateTime $date
-                 */
                 $date = $val['start_hour'];
 
                 $val['start_hour'] = date('H:i', $date->getTimestamp());
                 //dump($val);
             }
             if(!empty($val['end_hour'])) {
-                /**
-                 *
-                 * @var \Drupal\Core\Datetime\DrupalDateTime $date
-                 */
                 $date = $val['end_hour'];
 
                 $val['end_hour'] = date('H:i', $date->getTimestamp());
             }
-        }
+        }*/
         return $vals;
     }
 }

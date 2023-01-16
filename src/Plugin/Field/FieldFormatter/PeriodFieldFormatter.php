@@ -42,7 +42,7 @@ class PeriodFieldFormatter extends FormatterBase
     */
     public function settingsSummary() {
         $summary = [];
-        $summary[] = $this->t('Displays the random string.');
+        //$summary[] = $this->t('Displays the random string.');
         return $summary;
     }
 
