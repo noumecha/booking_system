@@ -39,11 +39,18 @@ class BookingSystemController extends ControllerBase
    */
   public function build()
   {
-
     $build['content'] = [
-      '#type' => 'item',
-      '#markup' => $this->t('It works!'),
+      '#type' => 'html_tag',
+      '#tag' => 'section',
+      "#attributes" => [
+        'id' => 'app',
+        'class' => [
+          'm-5',
+          'p-5'
+        ]
+      ]
     ];
+    $build['content']['#attached']['library'][] = 'system_booking/system_booking_app';
 
     return $build;
   }
@@ -64,6 +71,15 @@ class BookingSystemController extends ControllerBase
       $this->getLogger('boobooking_system.settingsking_system')->critical(ExceptionExtractMessage::errorAllToString($e));
       return HttpResponse::response($errors, 400, $e->getMessage());
     }
+  }
+
+  /***
+   * 
+   * {@inheritdoc}
+   */
+
+  public function func() {
+    return 'mouf';
   }
 
   /**

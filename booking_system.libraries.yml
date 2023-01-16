@@ -1,3 +1,13 @@
+# integration of vue-js app part 
+booking_system_app:
+  js:
+    files/bookingSystem.umd.min.js: {}
+  css:
+    component:
+      files/bookingSystem.css: {}
+  dependencies:
+    - core/drupalSettings
+    - booking_system/vuejs
 # Custom module library for general purposes.
 booking_system:
   js:
@@ -26,6 +36,7 @@ jquery-labelauty:
     - core/jquery
 
 # Third-party library (CDN).
+
 vuejs:
   remote: https://vuejs.org
   version: 2.0.5
