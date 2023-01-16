@@ -53,22 +53,22 @@ use Drupal\Core\Form\FormStateInterface;
         if (!empty($element['#title_display']))
             unset($element['#title_display']);
         # period start time
+        $start_hour_value = isset($items[$delta]->start_hour) ? DrupalDateTime::createFromTimestamp($items[$delta]->start_hour) : '';
         $elts['start_hour'] = [
             '#title' => t($this->getSetting('label_start_hour')),
             '#type' => 'datetime',
-            '#date_time_format' => 'H:m',
             '#date_date_element' => $date_type,
             '#date_time_element' => $time_type,
-            '#default_value' =>  isset($items[$delta]->start_hour) ? DrupalDateTime::createFromTimestamp($items[$delta]->start_hour) : '12:00:00 AM'
+            '#default_value' =>  $start_hour_value,
         ];
         # period end hour
+        $end_hour_value = isset($items[$delta]->end_hour) ? DrupalDateTime::createFromTimestamp($items[$delta]->end_hour) : '';
         $elts['end_hour'] = [
             '#title' => t($this->getSetting('label_end_hour')),
             '#type' => 'datetime',
-            '#date_time_format' => 'H:m',
             '#date_date_element' => $date_type, // none
             '#date_time_element' => $time_type,
-            '#default_value' => isset($items[$delta]->end_debut) ? DrupalDateTime::createFromTimestamp($items[$delta]->end_hour) : '12:00:00 AM'
+            '#default_value' => $end_hour_value,
         ];
         # period status
         $elts['status'] = [
