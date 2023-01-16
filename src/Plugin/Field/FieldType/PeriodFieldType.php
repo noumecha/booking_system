@@ -35,23 +35,28 @@ class PeriodFieldType extends FieldItemBase
         'start_hour' => [
           'type' => 'varchar',
           'not null' => FALSE,
-          'lenght' => '256'
+          'length' => '256'
         ],
         'end_hour' => [
           'type' => 'varchar',
+          'length' => '256',
           'not null' => FALSE,
-          'lenght' => '256'
         ],
         'intervalle' => [
             'type' => 'int',
+            'unsigned' => FALSE,
+            'not null' => FALSE,
             'size' => 'tiny',
         ],
         'decallage' => [
             'type' => 'int',
+            'not null' => FALSE,
+            'unsigned' => FALSE,
             'size' => 'tiny',
         ],
         'status' => [
             'type' => 'int',
+            'not null' => FALSE,
             'size' => 'tiny',
         ],
       ],
@@ -65,13 +70,11 @@ class PeriodFieldType extends FieldItemBase
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
     # heure de debut
     $properties['start_hour'] = DataDefinition::create('string')
-        ->setLabel(t('Heure de debut'))
-        ->setDescription(t('Définir l\'heure de debut la periode'))
+        ->setLabel(t('Text value'))
         ->setRequired(TRUE);
     # heure de fin
     $properties['end_hour'] = DataDefinition::create('string')
-        ->setLabel(t('Heure de fin'))
-        ->setDescription(t('Définir l\'heure de fin la periode'))
+        ->setLabel(t('Text value'))
         ->setRequired(TRUE);
     # period status  
     $properties['status'] = DataDefinition::create('boolean')
@@ -79,13 +82,11 @@ class PeriodFieldType extends FieldItemBase
         ->setRequired(TRUE);
     # preriode interavalle // this guy need to have 2 subfields
     $properties['intervalle'] = DataDefinition::create('integer')
-        ->setLabel(t('intervalle'))
-        ->setDescription(t('Intervalle de temps entre les heures'))
+        ->setLabel(t('Integer value'))
         ->setRequired(TRUE);
     # period decallage 
     $properties['decallage'] = DataDefinition::create('integer')
-        ->setLabel(t('decallage'))
-        ->setDescription(t('Decallage entre intervalle de temps '))
+        ->setLabel(t('Integer value'))
         ->setRequired(TRUE);
 
     return $properties;
@@ -100,7 +101,6 @@ class PeriodFieldType extends FieldItemBase
     $date = new \DateTime();
     $values['start_hour'] = date('H:i', $date->getTimestamp());
     $values['end_hour'] = date('H:i', $date->getTimestamp());
-    $values['status'] = false;
     $values['intervalle'] = 15;
     $values['decallage'] = 15;
     return $values;

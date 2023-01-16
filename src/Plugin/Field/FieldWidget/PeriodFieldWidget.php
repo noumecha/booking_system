@@ -61,7 +61,6 @@ use Drupal\Core\Form\FormStateInterface;
             '#date_time_element' => $time_type,
             '#default_value' =>  isset($items[$delta]->start_hour) ? DrupalDateTime::createFromTimestamp($items[$delta]->start_hour) : '12:00:00 AM'
         ];
-
         # period end hour
         $elts['end_hour'] = [
             '#title' => t($this->getSetting('label_end_hour')),
@@ -77,8 +76,6 @@ use Drupal\Core\Form\FormStateInterface;
             '#type' => 'checkbox',
             '#description' => 'Cochez la case pour désactiver la période',
             '#default_value' => isset($items[$delta]->status) ? $items[$delta]->status : false,
-            '#size' => $this->getSetting('size'),
-            '#maxlength' => $this->getFieldSetting('max_length')
           ];
         # period interval
         $elts['intervalle'] = [
@@ -121,9 +118,9 @@ use Drupal\Core\Form\FormStateInterface;
             '#min' => 1,
         ];
         $element['status'] = [
-            '#type' => 'textfield',
+            '#type' => 'boolean',
             '#title' => $this->getSetting('label_status'),
-            '#default_value' => $this->getSetting('size'),
+            '#default_value' => true,
         ];
         $element['start_hour'] = [
             '#type' => 'textfield',
