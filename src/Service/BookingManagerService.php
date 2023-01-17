@@ -21,12 +21,18 @@ class BookingManagerService extends ControllerBase
     $this->em = $em;
   }
 
+  /**
+   * 
+   * {@inheritdoc}
+   * 
+   */
   public function generateDates()
   {
     $data = [];
     $config = $this->config('booking_system.settings')->getRawData();
     $data["globalDiscount"] = $config["reduction"];
     $data["numberOfDisplayedDays"] = $config["number_of_days"];
+    //$data["number0fPeoples"] = $config["number_of_persons"];
     $disabledDaysOfTheWeek = $this->getDisabledDaysOfTheWeek($config["jours"]);
     $data["disabledDays"] = $disabledDaysOfTheWeek;
 
@@ -34,6 +40,11 @@ class BookingManagerService extends ControllerBase
     return $data;
   }
 
+  /**
+   * 
+   * {@inheritdoc}
+   * 
+   */
   public function generateSchdules($day)
   {
     $data = [];
@@ -48,6 +59,7 @@ class BookingManagerService extends ControllerBase
       'Saturday' => 6,
     ];
 
+    // retrive the global config values
     $config = $this->config('booking_system.settings')->getRawData();
 
     //very if the date is valid
@@ -66,7 +78,7 @@ class BookingManagerService extends ControllerBase
     //check if the date is modified specificaly
 
 
-    //else get the defaul configuration and render it
+    //else get the default configuration and render it
     $dayOfTheWeek = date('l', $day);
     $isValidated = $config["jours"][$dayNames[$dayOfTheWeek]]["status"];
     if ($isValidated != 1) {
@@ -80,13 +92,19 @@ class BookingManagerService extends ControllerBase
     foreach ($selectedDay["periodes"] as $period) {
       $dayPeriod = [];
       $dayPeriod["name"] = $period["label"];
-      $dayPeriod["times"] = $this->getPeriodes($period["h_d__m_d"], $period["h_f__m_f"], (int) $period["decallage"], $day, $period["intervalle"]);
+      $dayPeriod["times"] = $this->getPeriodes($period["h_d__m_d"], $period["h_f__m_f"], (int) $period["intervalle"], $day, $period["decallage"]);
 
       $periods[] = $dayPeriod;
     }
     return $periods;
   }
 
+  /**
+   * 
+   * {@inheritdoc}
+   * get the disabled days
+   * 
+   */
   public function getDisabledDaysOfTheWeek(array $days)
   {
     $disabledDays = [];
@@ -100,6 +118,11 @@ class BookingManagerService extends ControllerBase
     return $disabledDays;
   }
 
+  /**
+   * 
+   * {@inheritdoc}
+   * get the periods
+   */
   public function getPeriodes($start, $end, $gap, $day, $intervalle)
   {
     $intervalle = (int) $intervalle;

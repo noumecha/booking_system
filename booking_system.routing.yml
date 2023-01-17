@@ -1,3 +1,4 @@
+# just for testing purposes
 booking_system.example:
   path: '/booking-system/example'
   defaults:
@@ -5,7 +6,8 @@ booking_system.example:
     _controller: '\Drupal\booking_system\Controller\BookingSystemController::build'
   requirements:
     _permission: 'access content'
-# start the app : 
+
+# start the vues-js app : 
 booking_system.app:
   path: '/booking-system/page'
   defaults:
@@ -13,6 +15,7 @@ booking_system.app:
     _controller: '\Drupal\booking_system\Controller\BookingSystemController::build'
   requirements:
     _permission: 'access content'
+
 # for Booking System Date Controller
 booking_system.date:
   path: '/booking-system/dates'
@@ -22,6 +25,7 @@ booking_system.date:
   requirements:
     _permission: 'access content'
 
+# route for schedules
 booking_system.date.schedule:
   path: '/booking-system/dates/{day}'
   defaults:
@@ -38,6 +42,7 @@ booking_system.simple_page:
     _controller: '\Drupal\booking_system\Form\SettingsForm'
   requirements:
     _permission: 'access content'
+
 # for gobal config booking system
 booking_system.settings_form:
   path: '/admin/config/system/booking-system'
