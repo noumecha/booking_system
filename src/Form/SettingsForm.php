@@ -107,7 +107,7 @@ class SettingsForm extends ConfigFormBase implements DaysSettingsInterface {
         $form['jours'][$i]['periodes'][$j]['decallage']  = [
           '#type' => 'number',
           '#title' => "Valeur de la reduction",
-          '#default_value' => isset($config['jours'][$i]['periodes'][$j]['decallages']) ? $config['jours'][$i]['periodes'][$j]['decallage'] : $period['decallage']
+          '#default_value' => isset($config['jours'][$i]['periodes'][$j]['decallage']) ? $config['jours'][$i]['periodes'][$j]['decallage'] : $period['decallage']
         ];
         // intervalle :
         $form['jours'][$i]['periodes'][$j]['intervalle']  = [

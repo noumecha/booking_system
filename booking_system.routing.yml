@@ -2,7 +2,7 @@ booking_system.example:
   path: '/booking-system/example'
   defaults:
     _title: 'Example'
-    _controller: '\Drupal\booking_system\Controller\BookingSystemController::func'
+    _controller: '\Drupal\booking_system\Controller\BookingSystemController::build'
   requirements:
     _permission: 'access content'
 # start the app : 

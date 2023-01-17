@@ -35,7 +35,7 @@ class BookingSystemController extends ControllerBase
 
 
   /**
-   * Builds the response.
+   * Builds the response to showing the Vue-js app
    */
   public function build()
   {
@@ -50,8 +50,8 @@ class BookingSystemController extends ControllerBase
         ]
       ]
     ];
-    $build['content']['#attached']['library'][] = 'system_booking/system_booking_app';
-
+    $build['content']['#attached']['library'][] = 'booking_system/booking_system_app';
+    //dump($build);
     return $build;
   }
 
@@ -71,15 +71,6 @@ class BookingSystemController extends ControllerBase
       $this->getLogger('boobooking_system.settingsking_system')->critical(ExceptionExtractMessage::errorAllToString($e));
       return HttpResponse::response($errors, 400, $e->getMessage());
     }
-  }
-
-  /***
-   * 
-   * {@inheritdoc}
-   */
-
-  public function func() {
-    return 'mouf';
   }
 
   /**

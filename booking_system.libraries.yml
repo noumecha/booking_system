@@ -39,10 +39,10 @@ jquery-labelauty:
 
 vuejs:
   remote: https://vuejs.org
-  version: 2.0.5
+  version: 2.0.6
   license:
     name: MIT
     url: https://github.com/vuejs/vue/blob/dev/LICENSE
     gpl-compatible: true
   js:
-    https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js: {type: external, minified: true}
+    https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.14/vue.min.js: {type: external, minified: true, weight: -10 }
