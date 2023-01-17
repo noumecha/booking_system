@@ -32,7 +32,7 @@ class BookingManagerService extends ControllerBase
     $config = $this->config('booking_system.settings')->getRawData();
     $data["globalDiscount"] = $config["reduction"];
     $data["numberOfDisplayedDays"] = $config["number_of_days"];
-    //$data["number0fPeoples"] = $config["number_of_persons"];
+    $data["number0fPeoples"] = $config["number_of_persons"];
     $disabledDaysOfTheWeek = $this->getDisabledDaysOfTheWeek($config["jours"]);
     $data["disabledDays"] = $disabledDaysOfTheWeek;
 

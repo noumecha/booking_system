@@ -27,6 +27,7 @@ interface DaysSettingsInterface /*extends PluginInspectionInterface*/ {
         'm_f' => 00,
         'decallage' => 5,
         'intervalle' => 15,
+        'reduction' => 20,
         'creneaux' => []
         ],
         [
@@ -38,6 +39,7 @@ interface DaysSettingsInterface /*extends PluginInspectionInterface*/ {
           'm_f' => 00,
           'decallage' => 10,
           'intervalle' => 30,
+          'reduction' => 10,
           'creneaux' => []
         ],
         [
@@ -49,13 +51,13 @@ interface DaysSettingsInterface /*extends PluginInspectionInterface*/ {
           'm_f' => 30,
           'decallage' => 10,
           'intervalle' => 30,
+          'reduction' => 0,
           'creneaux' => []
         ]
       ]
     ],
     [
       'label' => 'Lundi',
-      'text' => 'noumel',
       'status' => true, // status pour le jour
       'periodes' => [
         [
@@ -67,6 +69,7 @@ interface DaysSettingsInterface /*extends PluginInspectionInterface*/ {
         'm_f' => 00,
         'decallage' => 5,
         'intervalle' => 15,
+        'reduction' => 20,
         'creneaux' => []
         ],
         [
@@ -78,6 +81,7 @@ interface DaysSettingsInterface /*extends PluginInspectionInterface*/ {
           'm_f' => 00,
           'decallage' => 10,
           'intervalle' => 30,
+          'reduction' => 10,
           'creneaux' => []
         ],
         [
@@ -89,10 +93,11 @@ interface DaysSettingsInterface /*extends PluginInspectionInterface*/ {
           'm_f' => 30,
           'decallage' => 10,
           'intervalle' => 30,
+          'reduction' => 0,
           'creneaux' => []
         ]
       ]
-    ],
+    ],    
     [
       'label' => 'Mardi',
       'status' => true, // status pour le jour
@@ -106,6 +111,7 @@ interface DaysSettingsInterface /*extends PluginInspectionInterface*/ {
         'm_f' => 00,
         'decallage' => 5,
         'intervalle' => 15,
+        'reduction' => 20,
         'creneaux' => []
         ],
         [
@@ -117,6 +123,7 @@ interface DaysSettingsInterface /*extends PluginInspectionInterface*/ {
           'm_f' => 00,
           'decallage' => 10,
           'intervalle' => 30,
+          'reduction' => 10,
           'creneaux' => []
         ],
         [
@@ -128,10 +135,11 @@ interface DaysSettingsInterface /*extends PluginInspectionInterface*/ {
           'm_f' => 30,
           'decallage' => 10,
           'intervalle' => 30,
+          'reduction' => 0,
           'creneaux' => []
         ]
       ]
-    ],
+    ],    
     [
       'label' => 'Mercredi',
       'status' => true, // status pour le jour
@@ -145,6 +153,7 @@ interface DaysSettingsInterface /*extends PluginInspectionInterface*/ {
         'm_f' => 00,
         'decallage' => 5,
         'intervalle' => 15,
+        'reduction' => 20,
         'creneaux' => []
         ],
         [
@@ -156,6 +165,7 @@ interface DaysSettingsInterface /*extends PluginInspectionInterface*/ {
           'm_f' => 00,
           'decallage' => 10,
           'intervalle' => 30,
+          'reduction' => 10,
           'creneaux' => []
         ],
         [
@@ -167,10 +177,11 @@ interface DaysSettingsInterface /*extends PluginInspectionInterface*/ {
           'm_f' => 30,
           'decallage' => 10,
           'intervalle' => 30,
+          'reduction' => 0,
           'creneaux' => []
         ]
       ]
-    ],
+    ],    
     [
       'label' => 'Jeudi',
       'status' => true, // status pour le jour
@@ -184,6 +195,7 @@ interface DaysSettingsInterface /*extends PluginInspectionInterface*/ {
         'm_f' => 00,
         'decallage' => 5,
         'intervalle' => 15,
+        'reduction' => 20,
         'creneaux' => []
         ],
         [
@@ -195,6 +207,7 @@ interface DaysSettingsInterface /*extends PluginInspectionInterface*/ {
           'm_f' => 00,
           'decallage' => 10,
           'intervalle' => 30,
+          'reduction' => 10,
           'creneaux' => []
         ],
         [
@@ -206,10 +219,11 @@ interface DaysSettingsInterface /*extends PluginInspectionInterface*/ {
           'm_f' => 30,
           'decallage' => 10,
           'intervalle' => 30,
+          'reduction' => 0,
           'creneaux' => []
         ]
       ]
-    ],
+    ],    
     [
       'label' => 'Vendredi',
       'status' => true, // status pour le jour
@@ -223,6 +237,7 @@ interface DaysSettingsInterface /*extends PluginInspectionInterface*/ {
         'm_f' => 00,
         'decallage' => 5,
         'intervalle' => 15,
+        'reduction' => 20,
         'creneaux' => []
         ],
         [
@@ -234,6 +249,7 @@ interface DaysSettingsInterface /*extends PluginInspectionInterface*/ {
           'm_f' => 00,
           'decallage' => 10,
           'intervalle' => 30,
+          'reduction' => 10,
           'creneaux' => []
         ],
         [
@@ -245,10 +261,11 @@ interface DaysSettingsInterface /*extends PluginInspectionInterface*/ {
           'm_f' => 30,
           'decallage' => 10,
           'intervalle' => 30,
+          'reduction' => 0,
           'creneaux' => []
         ]
       ]
-    ],
+    ],    
     [
       'label' => 'Samedi',
       'status' => true, // status pour le jour
@@ -262,6 +279,7 @@ interface DaysSettingsInterface /*extends PluginInspectionInterface*/ {
         'm_f' => 00,
         'decallage' => 5,
         'intervalle' => 15,
+        'reduction' => 20,
         'creneaux' => []
         ],
         [
@@ -273,6 +291,7 @@ interface DaysSettingsInterface /*extends PluginInspectionInterface*/ {
           'm_f' => 00,
           'decallage' => 10,
           'intervalle' => 30,
+          'reduction' => 10,
           'creneaux' => []
         ],
         [
@@ -284,6 +303,7 @@ interface DaysSettingsInterface /*extends PluginInspectionInterface*/ {
           'm_f' => 30,
           'decallage' => 10,
           'intervalle' => 30,
+          'reduction' => 0,
           'creneaux' => []
         ]
       ]

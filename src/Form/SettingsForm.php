@@ -115,6 +115,12 @@ class SettingsForm extends ConfigFormBase implements DaysSettingsInterface {
           '#title' => "Intervalle de temps des creneaux",
           '#default_value' => isset($config['jours'][$i]['periodes'][$j]['intervalle']) ? $config['jours'][$i]['periodes'][$j]['intervalle'] : $period['intervalle']
         ];
+        // reduction de la périodes :
+        $form['jours'][$i]['periodes'][$j]['reduction']  = [
+          '#type' => 'number',
+          '#title' => "Reduction pour la période",
+          '#default_value' => isset($config['jours'][$i]['periodes'][$j]['reduction']) ? $config['jours'][$i]['periodes'][$j]['reduction'] : $period['reduction']
+        ];
       }
     }
     // isset($config['jours'][$i]['status']) ? $config['jours'][$i]['status'] : $val['status']
