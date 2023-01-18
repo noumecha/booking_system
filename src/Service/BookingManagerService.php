@@ -32,11 +32,18 @@ class BookingManagerService extends ControllerBase
     $config = $this->config('booking_system.settings')->getRawData();
     $data["globalDiscount"] = $config["reduction"];
     $data["numberOfDisplayedDays"] = $config["number_of_days"];
-    $data["number0fPeoples"] = $config["number_of_persons"];
+    $data["maxPeoples"] = $config["number_of_persons"];
     $disabledDaysOfTheWeek = $this->getDisabledDaysOfTheWeek($config["jours"]);
     $data["disabledDays"] = $disabledDaysOfTheWeek;
 
+    /**
+     *
+     * @var \Drupal\booking_system\Entity\BookingDateEntity $entity
+     */
     $disabledDays = $this->em->getStorage('booking_system_date')->loadMultiple(); //getQuery permet de construire une requête
+    /*$disabledDates = $this->getDisabledDates($disabledDays);
+    $data['disabledDates'] = $disabledDates;*/
+    //dump($disabledDays);
     return $data;
   }
 
@@ -108,14 +115,32 @@ class BookingManagerService extends ControllerBase
   public function getDisabledDaysOfTheWeek(array $days)
   {
     $disabledDays = [];
-    foreach ($days as $day) {
-      $i = 0;
+    foreach ($days as $k => $day) {
       if ($day["status"] == 0) {
-        $disabledDays[] = $i;
+        $disabledDays[$k] = $k;
       }
-      ++$i;
     }
+    $disabledDays = array_values($disabledDays);
+    //dump($disabledDays);
     return $disabledDays;
+  }
+
+  /**
+   * 
+   * {@inheritdoc}
+   * 
+   */
+
+  public function getDisabledDates(array $dates) {
+    $disabledDates = [];
+    foreach ($dates as $d => $date) {
+      if ($date['status'] == 0) {
+        $disabledDates[$d] = $date['date_debut'];
+      }
+    }
+    $disabledDates = array_values($disabledDates);
+
+    return $disabledDates;
   }
 
   /**
@@ -138,7 +163,7 @@ class BookingManagerService extends ControllerBase
     $timestamp = $time;
 
     while ($timestamp <= $maxTimestamp) {
-      $times[] = date("h:i", $timestamp);
+      $times[] = date("H:i", $timestamp);
       $timestamp += $newGap;
       $timestamp += $intervalle;
     }

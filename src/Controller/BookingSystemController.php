@@ -80,9 +80,7 @@ class BookingSystemController extends ControllerBase
    */
   public function schedule($day)
   {
-      //$day = strtotime($day); # just for testing [tmc]
       $data = $this->manager->generateSchdules($day);
-      //dump($day);
       if (isset($data["error"])) {
         return new JsonResponse($data, Response::HTTP_BAD_REQUEST);
       }
