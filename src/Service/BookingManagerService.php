@@ -5,6 +5,7 @@ namespace Drupal\booking_system\Service;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Controller\ControllerBase;
+use Google\Service\Kgsearch\Resource\Entities;
 
 /**
  * Manage the booking system
@@ -52,6 +53,29 @@ class BookingManagerService extends ControllerBase
    * {@inheritdoc}
    * 
    */
+  public function generateDisabledDates(){
+    $data=[];
+    $entities = $this->em->getStorage('booking_system_date')->loadMultiple(); //getQuery permet de construire une requête
+    $today = strtotime('now');
+    /**
+     *
+     * @var \Drupal\booking_system\Entity\BookingSystemDate $entity
+     */
+    foreach($entities as $entity){
+      $date_status = $entity->get("status")->getValue()[0]['value'];
+      $date_value  = strtotime($entity->get("start_date")->getValue()[0]['value']);
+      if(!$date_status && $date_value >= $today){
+        $data[] =  $date_value;
+      }
+    }
+    return $data;
+  }
+
+  /**
+   * 
+   * {@inheritdoc}
+   * 
+   */
   public function generateSchdules($day)
   {
     $data = [];
@@ -66,7 +90,7 @@ class BookingManagerService extends ControllerBase
       'Saturday' => 6,
     ];
 
-    // retrive the global config values
+    // retrive the global config alues
     $config = $this->config('booking_system.settings')->getRawData();
 
     //very if the date is valid

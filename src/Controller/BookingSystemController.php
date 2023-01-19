@@ -65,6 +65,7 @@ class BookingSystemController extends ControllerBase
     try {
 
       $data = $this->manager->generateDates();
+      $data['disabledDates'] = $this->manager->generateDisabledDates();
       return HttpResponse::response($data);
     } catch (\Exception $e) {
       $errors = ExceptionExtractMessage::errorAll($e);
