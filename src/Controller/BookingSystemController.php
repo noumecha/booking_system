@@ -81,6 +81,8 @@ class BookingSystemController extends ControllerBase
    */
   public function schedule($day)
   {
+      $day = (int) $day;
+
       $data = $this->manager->generateSchdules($day);
       if (isset($data["error"])) {
         return new JsonResponse($data, Response::HTTP_BAD_REQUEST);
