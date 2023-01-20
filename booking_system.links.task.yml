@@ -50,3 +50,29 @@ entity.booking_system_schedule.delete_form:
   base_route:  entity.booking_system_schedule.canonical
   title: Delete
   weight: 10
+# Booking system reservation routing definition
+booking_system_reservation.settings_tab:
+  route_name: booking_system_reservation.settings
+  title: 'Settings'
+  base_route: booking_system_reservation.settings
+
+entity.booking_system_reservation.canonical:
+  route_name: entity.booking_system_reservation.canonical
+  base_route: entity.booking_system_reservation.canonical
+  title: 'View'
+
+entity.booking_system_reservation.edit_form:
+  route_name: entity.booking_system_reservation.edit_form
+  base_route: entity.booking_system_reservation.canonical
+  title: 'Edit'
+
+entity.booking_system_reservation.version_history:
+  route_name: entity.booking_system_reservation.version_history
+  base_route: entity.booking_system_reservation.canonical
+  title: 'Revisions'
+
+entity.booking_system_reservation.delete_form:
+  route_name:  entity.booking_system_reservation.delete_form
+  base_route:  entity.booking_system_reservation.canonical
+  title: Delete
+  weight: 10
