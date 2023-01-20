@@ -3,15 +3,15 @@
 namespace Drupal\booking_system\Form;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\booking_system\Entity\BookingSystemReservationInterface;
+use Drupal\booking_system\Entity\BookingReservationInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides a form for reverting a Booking system reservation revision for a single trans.
+ * Provides a form for reverting a Booking reservation revision for a single trans.
  *
  * @ingroup booking_system
  */
-class BookingSystemReservationRevisionRevertTranslationForm extends BookingSystemReservationRevisionRevertForm {
+class BookingReservationRevisionRevertTranslationForm extends BookingReservationRevisionRevertForm {
 
   /**
    * The language to be reverted.
@@ -40,7 +40,7 @@ class BookingSystemReservationRevisionRevertTranslationForm extends BookingSyste
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'booking_system_reservation_revision_revert_translation_confirm';
+    return 'booking_reservation_revision_revert_translation_confirm';
   }
 
   /**
@@ -56,9 +56,9 @@ class BookingSystemReservationRevisionRevertTranslationForm extends BookingSyste
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, $booking_system_reservation_revision = NULL, $langcode = NULL) {
+  public function buildForm(array $form, FormStateInterface $form_state, $booking_reservation_revision = NULL, $langcode = NULL) {
     $this->langcode = $langcode;
-    $form = parent::buildForm($form, $form_state, $booking_system_reservation_revision);
+    $form = parent::buildForm($form, $form_state, $booking_reservation_revision);
 
     $form['revert_untranslated_fields'] = [
       '#type' => 'checkbox',
@@ -72,11 +72,11 @@ class BookingSystemReservationRevisionRevertTranslationForm extends BookingSyste
   /**
    * {@inheritdoc}
    */
-  protected function prepareRevertedRevision(BookingSystemReservationInterface $revision, FormStateInterface $form_state) {
+  protected function prepareRevertedRevision(BookingReservationInterface $revision, FormStateInterface $form_state) {
     $revert_untranslated_fields = $form_state->getValue('revert_untranslated_fields');
 
-    /** @var \Drupal\booking_system\Entity\BookingSystemReservationInterface $default_revision */
-    $latest_revision = $this->BookingSystemReservationStorage->load($revision->id());
+    /** @var \Drupal\booking_system\Entity\BookingReservationInterface $default_revision */
+    $latest_revision = $this->BookingReservationStorage->load($revision->id());
     $latest_revision_translation = $latest_revision->getTranslation($this->langcode);
 
     $revision_translation = $revision->getTranslation($this->langcode);

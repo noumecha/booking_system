@@ -13,3 +13,8 @@ entity.booking_system_reservation.add_form:
   title: 'Add Booking system reservation'
   appears_on:
     - entity.booking_system_reservation.collection
+entity.booking_reservation.add_form:
+  route_name: entity.booking_reservation.add_form
+  title: 'Add Booking reservation'
+  appears_on:
+    - entity.booking_reservation.collection

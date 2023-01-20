@@ -5,24 +5,24 @@ namespace Drupal\booking_system;
 use Drupal\Core\Entity\Sql\SqlContentEntityStorage;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Language\LanguageInterface;
-use Drupal\booking_system\Entity\BookingSystemReservationInterface;
+use Drupal\booking_system\Entity\BookingReservationInterface;
 
 /**
- * Defines the storage handler class for Booking system reservation entities.
+ * Defines the storage handler class for Booking reservation entities.
  *
  * This extends the base storage class, adding required special handling for
- * Booking system reservation entities.
+ * Booking reservation entities.
  *
  * @ingroup booking_system
  */
-class BookingSystemReservationStorage extends SqlContentEntityStorage implements BookingSystemReservationStorageInterface {
+class BookingReservationStorage extends SqlContentEntityStorage implements BookingReservationStorageInterface {
 
   /**
    * {@inheritdoc}
    */
-  public function revisionIds(BookingSystemReservationInterface $entity) {
+  public function revisionIds(BookingReservationInterface $entity) {
     return $this->database->query(
-      'SELECT vid FROM {booking_system_reservation_revision} WHERE id=:id ORDER BY vid',
+      'SELECT vid FROM {booking_reservation_revision} WHERE id=:id ORDER BY vid',
       [':id' => $entity->id()]
     )->fetchCol();
   }
@@ -32,7 +32,7 @@ class BookingSystemReservationStorage extends SqlContentEntityStorage implements
    */
   public function userRevisionIds(AccountInterface $account) {
     return $this->database->query(
-      'SELECT vid FROM {booking_system_reservation_field_revision} WHERE uid = :uid ORDER BY vid',
+      'SELECT vid FROM {booking_reservation_field_revision} WHERE uid = :uid ORDER BY vid',
       [':uid' => $account->id()]
     )->fetchCol();
   }
@@ -40,8 +40,8 @@ class BookingSystemReservationStorage extends SqlContentEntityStorage implements
   /**
    * {@inheritdoc}
    */
-  public function countDefaultLanguageRevisions(BookingSystemReservationInterface $entity) {
-    return $this->database->query('SELECT COUNT(*) FROM {booking_system_reservation_field_revision} WHERE id = :id AND default_langcode = 1', [':id' => $entity->id()])
+  public function countDefaultLanguageRevisions(BookingReservationInterface $entity) {
+    return $this->database->query('SELECT COUNT(*) FROM {booking_reservation_field_revision} WHERE id = :id AND default_langcode = 1', [':id' => $entity->id()])
       ->fetchField();
   }
 
@@ -49,7 +49,7 @@ class BookingSystemReservationStorage extends SqlContentEntityStorage implements
    * {@inheritdoc}
    */
   public function clearRevisionsLanguage(LanguageInterface $language) {
-    return $this->database->update('booking_system_reservation_revision')
+    return $this->database->update('booking_reservation_revision')
       ->fields(['langcode' => LanguageInterface::LANGCODE_NOT_SPECIFIED])
       ->condition('langcode', $language->getId())
       ->execute();

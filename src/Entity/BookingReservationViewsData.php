@@ -5,9 +5,9 @@ namespace Drupal\booking_system\Entity;
 use Drupal\views\EntityViewsData;
 
 /**
- * Provides Views data for Booking system reservation entities.
+ * Provides Views data for Booking reservation entities.
  */
-class BookingSystemReservationViewsData extends EntityViewsData {
+class BookingReservationViewsData extends EntityViewsData {
 
   /**
    * {@inheritdoc}

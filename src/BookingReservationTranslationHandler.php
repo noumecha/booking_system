@@ -5,9 +5,9 @@ namespace Drupal\booking_system;
 use Drupal\content_translation\ContentTranslationHandler;
 
 /**
- * Defines the translation handler for booking_system_reservation.
+ * Defines the translation handler for booking_reservation.
  */
-class BookingSystemReservationTranslationHandler extends ContentTranslationHandler {
+class BookingReservationTranslationHandler extends ContentTranslationHandler {
 
   // Override here the needed methods from ContentTranslationHandler.
 }

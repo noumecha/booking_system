@@ -7,12 +7,12 @@ use Drupal\Core\Entity\Routing\AdminHtmlRouteProvider;
 use Symfony\Component\Routing\Route;
 
 /**
- * Provides routes for Booking system reservation entities.
+ * Provides routes for Booking reservation entities.
  *
  * @see \Drupal\Core\Entity\Routing\AdminHtmlRouteProvider
  * @see \Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider
  */
-class BookingSystemReservationHtmlRouteProvider extends AdminHtmlRouteProvider {
+class BookingReservationHtmlRouteProvider extends AdminHtmlRouteProvider {
 
   /**
    * {@inheritdoc}
@@ -64,9 +64,9 @@ class BookingSystemReservationHtmlRouteProvider extends AdminHtmlRouteProvider {
       $route
         ->setDefaults([
           '_title' => "{$entity_type->getLabel()} revisions",
-          '_controller' => '\Drupal\booking_system\Controller\BookingSystemReservationController::revisionOverview',
+          '_controller' => '\Drupal\booking_system\Controller\BookingReservationController::revisionOverview',
         ])
-        ->setRequirement('_permission', 'view all booking system reservation revisions')
+        ->setRequirement('_permission', 'view all booking reservation revisions')
         ->setOption('_admin_route', TRUE);
 
       return $route;
@@ -87,10 +87,10 @@ class BookingSystemReservationHtmlRouteProvider extends AdminHtmlRouteProvider {
       $route = new Route($entity_type->getLinkTemplate('revision'));
       $route
         ->setDefaults([
-          '_controller' => '\Drupal\booking_system\Controller\BookingSystemReservationController::revisionShow',
-          '_title_callback' => '\Drupal\booking_system\Controller\BookingSystemReservationController::revisionPageTitle',
+          '_controller' => '\Drupal\booking_system\Controller\BookingReservationController::revisionShow',
+          '_title_callback' => '\Drupal\booking_system\Controller\BookingReservationController::revisionPageTitle',
         ])
-        ->setRequirement('_permission', 'view all booking system reservation revisions')
+        ->setRequirement('_permission', 'view all booking reservation revisions')
         ->setOption('_admin_route', TRUE);
 
       return $route;
@@ -111,10 +111,10 @@ class BookingSystemReservationHtmlRouteProvider extends AdminHtmlRouteProvider {
       $route = new Route($entity_type->getLinkTemplate('revision_revert'));
       $route
         ->setDefaults([
-          '_form' => '\Drupal\booking_system\Form\BookingSystemReservationRevisionRevertForm',
+          '_form' => '\Drupal\booking_system\Form\BookingReservationRevisionRevertForm',
           '_title' => 'Revert to earlier revision',
         ])
-        ->setRequirement('_permission', 'revert all booking system reservation revisions')
+        ->setRequirement('_permission', 'revert all booking reservation revisions')
         ->setOption('_admin_route', TRUE);
 
       return $route;
@@ -135,10 +135,10 @@ class BookingSystemReservationHtmlRouteProvider extends AdminHtmlRouteProvider {
       $route = new Route($entity_type->getLinkTemplate('revision_delete'));
       $route
         ->setDefaults([
-          '_form' => '\Drupal\booking_system\Form\BookingSystemReservationRevisionDeleteForm',
+          '_form' => '\Drupal\booking_system\Form\BookingReservationRevisionDeleteForm',
           '_title' => 'Delete earlier revision',
         ])
-        ->setRequirement('_permission', 'delete all booking system reservation revisions')
+        ->setRequirement('_permission', 'delete all booking reservation revisions')
         ->setOption('_admin_route', TRUE);
 
       return $route;
@@ -159,10 +159,10 @@ class BookingSystemReservationHtmlRouteProvider extends AdminHtmlRouteProvider {
       $route = new Route($entity_type->getLinkTemplate('translation_revert'));
       $route
         ->setDefaults([
-          '_form' => '\Drupal\booking_system\Form\BookingSystemReservationRevisionRevertTranslationForm',
+          '_form' => '\Drupal\booking_system\Form\BookingReservationRevisionRevertTranslationForm',
           '_title' => 'Revert to earlier revision of a translation',
         ])
-        ->setRequirement('_permission', 'revert all booking system reservation revisions')
+        ->setRequirement('_permission', 'revert all booking reservation revisions')
         ->setOption('_admin_route', TRUE);
 
       return $route;
@@ -183,7 +183,7 @@ class BookingSystemReservationHtmlRouteProvider extends AdminHtmlRouteProvider {
       $route = new Route("/admin/structure/{$entity_type->id()}/settings");
       $route
         ->setDefaults([
-          '_form' => 'Drupal\booking_system\Form\BookingSystemReservationSettingsForm',
+          '_form' => 'Drupal\booking_system\Form\BookingReservationSettingsForm',
           '_title' => "{$entity_type->getLabel()} settings",
         ])
         ->setRequirement('_permission', $entity_type->getAdminPermission())

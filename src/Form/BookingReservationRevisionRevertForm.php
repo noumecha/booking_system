@@ -5,29 +5,29 @@ namespace Drupal\booking_system\Form;
 use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
-use Drupal\booking_system\Entity\BookingSystemReservationInterface;
+use Drupal\booking_system\Entity\BookingReservationInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides a form for reverting a Booking system reservation revision.
+ * Provides a form for reverting a Booking reservation revision.
  *
  * @ingroup booking_system
  */
-class BookingSystemReservationRevisionRevertForm extends ConfirmFormBase {
+class BookingReservationRevisionRevertForm extends ConfirmFormBase {
 
   /**
-   * The Booking system reservation revision.
+   * The Booking reservation revision.
    *
-   * @var \Drupal\booking_system\Entity\BookingSystemReservationInterface
+   * @var \Drupal\booking_system\Entity\BookingReservationInterface
    */
   protected $revision;
 
   /**
-   * The Booking system reservation storage.
+   * The Booking reservation storage.
    *
    * @var \Drupal\Core\Entity\EntityStorageInterface
    */
-  protected $bookingSystemReservationStorage;
+  protected $bookingReservationStorage;
 
   /**
    * The date formatter service.
@@ -48,7 +48,7 @@ class BookingSystemReservationRevisionRevertForm extends ConfirmFormBase {
    */
   public static function create(ContainerInterface $container) {
     $instance = parent::create($container);
-    $instance->bookingSystemReservationStorage = $container->get('entity_type.manager')->getStorage('booking_system_reservation');
+    $instance->bookingReservationStorage = $container->get('entity_type.manager')->getStorage('booking_reservation');
     $instance->dateFormatter = $container->get('date.formatter');
     $instance->time = $container->get('datetime.time');
     return $instance;
@@ -58,7 +58,7 @@ class BookingSystemReservationRevisionRevertForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'booking_system_reservation_revision_revert_confirm';
+    return 'booking_reservation_revision_revert_confirm';
   }
 
   /**
@@ -74,7 +74,7 @@ class BookingSystemReservationRevisionRevertForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function getCancelUrl() {
-    return new Url('entity.booking_system_reservation.version_history', ['booking_system_reservation' => $this->revision->id()]);
+    return new Url('entity.booking_reservation.version_history', ['booking_reservation' => $this->revision->id()]);
   }
 
   /**
@@ -94,8 +94,8 @@ class BookingSystemReservationRevisionRevertForm extends ConfirmFormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, $booking_system_reservation_revision = NULL) {
-    $this->revision = $this->BookingSystemReservationStorage->loadRevision($booking_system_reservation_revision);
+  public function buildForm(array $form, FormStateInterface $form_state, $booking_reservation_revision = NULL) {
+    $this->revision = $this->BookingReservationStorage->loadRevision($booking_reservation_revision);
     $form = parent::buildForm($form, $form_state);
 
     return $form;
@@ -115,26 +115,26 @@ class BookingSystemReservationRevisionRevertForm extends ConfirmFormBase {
     ]);
     $this->revision->save();
 
-    $this->logger('content')->notice('Booking system reservation: reverted %title revision %revision.', ['%title' => $this->revision->label(), '%revision' => $this->revision->getRevisionId()]);
-    $this->messenger()->addMessage(t('Booking system reservation %title has been reverted to the revision from %revision-date.', ['%title' => $this->revision->label(), '%revision-date' => $this->dateFormatter->format($original_revision_timestamp)]));
+    $this->logger('content')->notice('Booking reservation: reverted %title revision %revision.', ['%title' => $this->revision->label(), '%revision' => $this->revision->getRevisionId()]);
+    $this->messenger()->addMessage(t('Booking reservation %title has been reverted to the revision from %revision-date.', ['%title' => $this->revision->label(), '%revision-date' => $this->dateFormatter->format($original_revision_timestamp)]));
     $form_state->setRedirect(
-      'entity.booking_system_reservation.version_history',
-      ['booking_system_reservation' => $this->revision->id()]
+      'entity.booking_reservation.version_history',
+      ['booking_reservation' => $this->revision->id()]
     );
   }
 
   /**
    * Prepares a revision to be reverted.
    *
-   * @param \Drupal\booking_system\Entity\BookingSystemReservationInterface $revision
+   * @param \Drupal\booking_system\Entity\BookingReservationInterface $revision
    *   The revision to be reverted.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The current state of the form.
    *
-   * @return \Drupal\booking_system\Entity\BookingSystemReservationInterface
+   * @return \Drupal\booking_system\Entity\BookingReservationInterface
    *   The prepared revision ready to be stored.
    */
-  protected function prepareRevertedRevision(BookingSystemReservationInterface $revision, FormStateInterface $form_state) {
+  protected function prepareRevertedRevision(BookingReservationInterface $revision, FormStateInterface $form_state) {
     $revision->setNewRevision();
     $revision->isDefaultRevision(TRUE);
     $revision->setRevisionCreationTime($this->time->getRequestTime());
