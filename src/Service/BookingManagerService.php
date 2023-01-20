@@ -94,8 +94,8 @@ class BookingManagerService extends ControllerBase
     $config = $this->config('booking_system.settings')->getRawData();
 
     //very if the date is valid
-    $today = strtotime("now");
-    if ($day <= $today) {
+    $today = strtotime("today");
+    if ($day < $today) {
       $data["error"] = "The day sent must be posterior to the current day";
       return $data;
     }
@@ -123,10 +123,22 @@ class BookingManagerService extends ControllerBase
     foreach ($selectedDay["periodes"] as $period) {
       $dayPeriod = [];
       $dayPeriod["name"] = $period["label"];
-      $dayPeriod["times"] = $this->getPeriodes($period["h_d__m_d"], $period["h_f__m_f"], (int) $period["intervalle"], $day, $period["decallage"]);
 
+      $temp = $this->getPeriodes($period["h_d__m_d"], $period["h_f__m_f"], (int) $period["intervalle"], $day, $period["decallage"]);
+
+      foreach($temp as $hour){
+        $time_hour = strtotime($hour) - strtotime("today");
+        $state = $this->periodIsValid($day, $time_hour, $time_hour + $period['intervalle']*60, $period['decallage']);
+        $dayPeriod["times"][]= [
+          'hour' => $hour,
+          'status' => $state
+        ]; 
+      }
+      
+      $dayPeriod['intervalle'] = $period['intervalle'];
       $periods[] = $dayPeriod;
     }
+    
     return $periods;
   }
 
@@ -193,5 +205,51 @@ class BookingManagerService extends ControllerBase
     }
 
     return $times;
+  }
+  /**
+   * 
+   * {@inheritdoc}
+   * check the validity of a period
+   */
+  public function periodIsValid($day, $start_hour, $end_hour, $gap = 15){
+    $isValid = true;
+    $current_schedule =[
+      'start' =>$day + $start_hour,
+      'end'   =>$day + $end_hour
+    ];
+    //get the current time + 6hours (to match timezone)    
+    $currentTime = strtotime("now") + 21600;
+
+    //checking if the hour isn't passed yet
+    if($current_schedule['start'] <= $currentTime +$gap*60 ){
+      return false;
+    }    
+
+    //range of hours to disabled
+    $entities = $this->em->getStorage('booking_system_schedule')->loadMultiple();
+    /**
+     *
+     * @var \Drupal\booking_system\Entity\BookingSystemSchedule $entity
+     */    
+    foreach($entities as $entity){
+      $schedules = $entity->get("schedule")->getValue(); 
+      /**
+      *
+      * @var \Drupal\booking_system\Plugin\Field\FieldType\ScheduleItem $schedule
+      */
+      foreach($schedules as $schedule){
+        $start  = $schedule['start_date'] + strtotime($schedule['start_hour']) - strtotime('today');
+        $end    = $schedule['end_date'] + strtotime($schedule['end_hour']) - strtotime('today');
+        //check if the schedule is in the range of de disabled range of hours
+        if($current_schedule['start'] >= $start && $current_schedule['start'] <$end ||
+           $current_schedule['end'] >= $start && $current_schedule['end'] <= $end){
+          $isValid = false;
+          break;   
+        }
+      }
+      if(!$isValid)
+        break;
+    }    
+    return $isValid;
   }
 }
