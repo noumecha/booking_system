@@ -5,6 +5,7 @@ namespace Drupal\booking_system\Service;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\booking_system\Entity\BookingSystemReservation;
 use Google\Service\Kgsearch\Resource\Entities;
 
 /**
@@ -251,5 +252,27 @@ class BookingManagerService extends ControllerBase
         break;
     }    
     return $isValid;
+  }
+
+  /**
+   * {@inheritdoc}
+   * @param array $reservation
+   * @throws \Exception
+   * set the reservations
+   */
+  public function setRerservations(array $reservation) {
+    $user_id = $this->currentUser->id();
+    if ($user_id) {
+      $reservation = BookingSystemReservation::create([
+        'entity_id' => '',
+        'numberOfPlaces' => '',
+        'timeOfReservation' => '',
+        'periodeName' => '',
+        'reservationDate' => '',
+        'reservationReduction' => '',
+      ]);
+      return $reservation->save();
+    }
+    throw new \Exception("You must be logged in to be able to");
   }
 }

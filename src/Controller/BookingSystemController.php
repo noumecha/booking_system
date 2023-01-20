@@ -73,7 +73,32 @@ class BookingSystemController extends ControllerBase
       return HttpResponse::response($errors, 400, $e->getMessage());
     }
   }
-
+  /**
+   * Permet de recupérer la reservation d'un utilisateur.
+   *
+   * @param Request $request
+   * @return \Symfony\Component\HttpFoundation\JsonResponse
+   */
+  public function setReservation(Request $request) {
+    try {
+      if (\Drupal::currentUser()->id()) {
+        /**
+         *
+         * @var array $reservation
+         */
+        $reservation = Json::decode($request->getContent());
+        //$reservation['note'] = 1;
+        $datas = $this->manager->setRerservations($reservation);
+        return HttpResponse::response($datas);
+      }
+      throw \Exception("Vous n'etes pas connecté(e)");
+    }
+    catch (\Exception $e) {
+      $errors = ExceptionExtractMessage::errorAllToString($e);
+      $this->getLogger('booking_system')->critical($e->getMessage() . '<br>' . $errors);
+      return HttpResponse::response(ExceptionExtractMessage::errorAll($e), 400, $e->getMessage());
+    }
+  }
   /**
    *
    * Give the differents schedule of a day

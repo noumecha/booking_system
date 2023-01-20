@@ -71,7 +71,8 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *   field_ui_base_route = "booking_system_reservation.settings"
  * )
  */
-class BookingSystemReservation extends EditorialContentEntityBase implements BookingSystemReservationInterface {
+class BookingSystemReservation extends EditorialContentEntityBase implements BookingSystemReservationInterface
+{
 
   use EntityChangedTrait;
   use EntityPublishedTrait;
@@ -194,6 +195,32 @@ class BookingSystemReservation extends EditorialContentEntityBase implements Boo
       ->setDescription(t('Indicates if the last edit of a translation belongs to current revision.'))
       ->setReadOnly(TRUE)
       ->setRevisionable(TRUE)
+      ->setTranslatable(TRUE);
+    $fields['numberOfPlaces'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t('Number of places '))
+      ->setDescription(t('Indicates the number of places for the reservation'))
+      ->setReadOnly(TRUE)
+      ->setTranslatable(TRUE);
+    $fields['timeOfReservation'] = BaseFieldDefinition::create('datetime')
+      ->setLabel(t('Reservation Hour '))
+      ->setDescription(t('Indicates the reservation hour'))
+      ->setReadOnly(TRUE)
+      ->setTranslatable(TRUE);
+    $fields['periodeName'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Periode Name'))
+      ->setDescription(t('Indicates the reservation Periode'))
+      ->setReadOnly(TRUE)
+      ->setTranslatable(TRUE);
+    $fields['reservationDate'] = BaseFieldDefinition::create('datetime')
+      ->setLabel(t('Reservation Date'))
+      ->setSettings(['datetime_type' => 'date',])
+      ->setDescription(t('Indicates the reservation date'))
+      ->setReadOnly(TRUE)
+      ->setTranslatable(TRUE);
+    $fields['reservationReduction'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t('Reservation Reduction'))
+      ->setDescription(t('Indicates the reservation reduction'))
+      ->setReadOnly(TRUE)
       ->setTranslatable(TRUE);
 
     return $fields;

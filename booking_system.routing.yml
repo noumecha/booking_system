@@ -6,6 +6,16 @@ booking_system.example:
     _controller: '\Drupal\booking_system\Controller\BookingSystemController::build'
   requirements:
     _permission: 'access content'
+# get user reservation : 
+booking_system.reservation:
+  path: '/booking-system/set-reservation'
+  defaults:
+    _title: 'Reservation'
+    _controller: '\Drupal\booking_system\Controller\BookingSystemController::setReservation'
+  requirements:
+    _user_is_logged_in: 'TRUE'  
+  options:
+    _auth: ['basic_auth', 'cookie']
 
 # start the vues-js app : 
 booking_system.app:
