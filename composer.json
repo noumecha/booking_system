@@ -1,7 +1,7 @@
 {
     "name": "noumecha/booking_system",
     "description": "\"A booking module for drupal booking system\"",
-    "type": "drupal-custom-module",
+    "type": "drupal-module-custom",
     "license": "MIT",
     "authors": [
         {
