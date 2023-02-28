@@ -288,11 +288,11 @@ class BookingManagerService extends ControllerBase
     if ($user_id) {
       $reservation = BookingReservation::create([
         'entity_id' => '',
-        'numberOfPlaces' => '',
-        'timeOfReservation' => '',
-        'periodeName' => '',
-        'reservationDate' => '',
-        'reservationReduction' => '',
+        'number_of_places' => '',
+        'time_of_reservation' => '',
+        'periode_name' => '',
+        'reservation_date' => '',
+        'reservation_reduction' => '',
       ]);
       return $reservation->save();
     }
