@@ -262,28 +262,28 @@ class BookingReservation extends EditorialContentEntityBase implements BookingRe
       ->setReadOnly(TRUE)
       ->setRevisionable(TRUE)
       ->setTranslatable(TRUE);
-      $fields['numberOfPlaces'] = BaseFieldDefinition::create('integer')
+      $fields['number_of_places'] = BaseFieldDefinition::create('integer')
         ->setLabel(t('Number of places '))
         ->setDescription(t('Indicates the number of places for the reservation'))
         ->setReadOnly(TRUE)
         ->setTranslatable(TRUE);
-      $fields['timeOfReservation'] = BaseFieldDefinition::create('datetime')
+      $fields['time_of_reservation'] = BaseFieldDefinition::create('datetime')
         ->setLabel(t('Reservation Hour '))
         ->setDescription(t('Indicates the reservation hour'))
         ->setReadOnly(TRUE)
         ->setTranslatable(TRUE);
-      $fields['periodeName'] = BaseFieldDefinition::create('string')
+      $fields['periode_name'] = BaseFieldDefinition::create('string')
         ->setLabel(t('Periode Name'))
         ->setDescription(t('Indicates the reservation Periode'))
         ->setReadOnly(TRUE)
         ->setTranslatable(TRUE);
-      $fields['reservationDate'] = BaseFieldDefinition::create('datetime')
+      $fields['reservation_date'] = BaseFieldDefinition::create('datetime')
         ->setLabel(t('Reservation Date'))
         ->setSettings(['datetime_type' => 'date',])
         ->setDescription(t('Indicates the reservation date'))
         ->setReadOnly(TRUE)
         ->setTranslatable(TRUE);
-      $fields['reservationReduction'] = BaseFieldDefinition::create('integer')
+      $fields['reservation_reduction'] = BaseFieldDefinition::create('integer')
         ->setLabel(t('Reservation Reduction'))
         ->setDescription(t('Indicates the reservation reduction'))
         ->setReadOnly(TRUE)
