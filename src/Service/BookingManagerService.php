@@ -130,7 +130,7 @@ class BookingManagerService extends ControllerBase
     foreach ($selectedDay["periodes"] as $period) {
       $dayPeriod = [];
       $dayPeriod["name"] = $period["label"];
-
+      
       $temp = $this->getPeriodes($period["h_d__m_d"], $period["h_f__m_f"], (int) $period["intervalle"], $day, $period["decallage"]);
 
       foreach($temp as $hour){
@@ -286,8 +286,9 @@ class BookingManagerService extends ControllerBase
   public function setRerservations(array $reservation) {
     $user_id = $this->currentUser->id();
     if ($user_id) {
+      $this->reservationIsValid($reservation);
       $reservation = BookingReservation::create([
-        'entity_id' => '',
+        // 'entity_id' => '',
         'number_of_places' => '',
         'time_of_reservation' => '',
         'periode_name' => '',
@@ -298,7 +299,68 @@ class BookingManagerService extends ControllerBase
     }
     throw new \Exception("You must be logged in to be able to");
   }
-   /* 
+  
+  /**
+   * {@inheritdoc}
+   * @param array $reservation
+   * @throws \Exception
+   * set the reservations
+   */
+
+  public function reservationIsValid(array $reservation){
+    $schedules = $this->generateSchdules($reservation['reservation_date']);
+    $text_to_throw = 'Invalids datas';
+    //how we expect to find our schedule in the array. 
+    $expected_hour = [
+      'hour' => $reservation['time_of_reservation'],
+      'status' => true
+    ];
+    //will get True if the hour exist
+    $hour_exist = false;
+    
+    //will get 'true' if the period_name received is valid
+    $period_exist = false;
+
+    $period_name = $reservation['periode_name'];
+    //Store the index of the period in which we wish to make a reservation
+    
+    $period_index = 0;
+    //start verifications
+
+    if('integer' != gettype($reservation['reservation_reduction'])){
+      throw new \Exception($text_to_throw." reduction");
+    }
+
+    if('integer' != gettype($reservation['number_of_places'])){
+      throw new \Exception($text_to_throw." place");
+    }
+
+    foreach($schedules as $period){
+      if($period["name"] == $period_name){
+        $period_exist = true;
+        break;
+      }
+      $period_index +=1;
+    }
+
+    if(!$period_exist){
+      throw new \Exception($text_to_throw." period");
+    }
+
+    foreach($schedules as $period){
+      if(in_array($expected_hour, $period['times'])){
+        $hour_exist = true;
+        break;
+      }
+    }
+
+    if(!$hour_exist){
+      throw new \Exception($text_to_throw." hour");
+    }
+    return true;
+  }
+
+   /**
    * {@inheritdoc}
    * check if the date contain at least one valid schedule
    */
@@ -318,4 +380,6 @@ class BookingManagerService extends ControllerBase
     }
     return $status;
   }
+
+
 }

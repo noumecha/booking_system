@@ -2,15 +2,15 @@
 
 namespace Drupal\booking_system\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Drupal\booking_system\Service\BookingManagerService;
 use Stephane888\DrupalUtility\HttpResponse;
 use Stephane888\Debug\ExceptionExtractMessage;
-
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-
+use Drupal\Component\Serialization\Json;
 /**
  * Returns responses for booking_system routes.
  */
@@ -88,7 +88,7 @@ class BookingSystemController extends ControllerBase
          */
         $reservation = Json::decode($request->getContent());
         //$reservation['note'] = 1;
-        $datas = $this->manager->setRerservations($reservation);
+        $datas = $this->manager->setRerservations($reservation['reservation']);
         return HttpResponse::response($datas);
       }
       throw \Exception("Vous n'etes pas connecté(e)");
