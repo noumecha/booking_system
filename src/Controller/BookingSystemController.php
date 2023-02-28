@@ -77,6 +77,7 @@ class BookingSystemController extends ControllerBase
    * Permet de recupérer la reservation d'un utilisateur.
    *
    * @param Request $request
+   * @throws \Exception
    * @return \Symfony\Component\HttpFoundation\JsonResponse
    */
   public function setReservation(Request $request) {
@@ -91,7 +92,7 @@ class BookingSystemController extends ControllerBase
         $datas = $this->manager->setRerservations($reservation['reservation']);
         return HttpResponse::response($datas);
       }
-      throw \Exception("Vous n'etes pas connecté(e)");
+      throw new \Exception("Vous n'etes pas connecté(e)");
     }
     catch (\Exception $e) {
       $errors = ExceptionExtractMessage::errorAllToString($e);
