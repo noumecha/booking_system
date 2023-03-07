@@ -131,38 +131,38 @@ class BookingManagerService extends ControllerBase
     foreach ($selectedDay["periodes"] as $period) {
       $dayPeriod = [];
       $dayPeriod["name"] = $period["label"];
-      
+      $dayPeriod['discount'] = -$period['reduction'];
       $temp = $this->getPeriodes($period["h_d__m_d"], $period["h_f__m_f"], (int) $period["intervalle"], $day, $period["decallage"]);
 
       foreach($temp as $hour){
         $time_hour = strtotime($hour) - strtotime("today");
         $state = $this->periodIsValid($day, $time_hour, $time_hour + $period['intervalle']*60, $period['decallage'], $period['intervalle']);
+        $state = $this->getSeats($day, $hour)['number'] && $state==true? true: false;
         $dayPeriod["times"][]= [
           'hour' => $hour,
           'status' => $state,
-          
         ]; 
       }
 
       $periods[] = $dayPeriod;
     }
-    $datas = [];
-    //range of hours to disabled
-    $entities = $this->em->getStorage('booking_system_schedule')->loadMultiple();
-    /**
-     *
-     * @var \Drupal\booking_system\Entity\BookingSystemSchedule $entity
-     */    
-    foreach($entities as $entity){
-      $schedules = $entity->get("schedule")->getValue(); 
-      /**
-      *
-      * @var \Drupal\booking_system\Plugin\Field\FieldType\ScheduleItem $schedule
-      */
-      foreach($schedules as $schedule){      
-        $datas[] = $schedule;
-      }
-    }
+    // $datas = [];
+    // //range of hours to disabled
+    // $entities = $this->em->getStorage('booking_system_schedule')->loadMultiple();
+    // /**
+    //  *
+    //  * @var \Drupal\booking_system\Entity\BookingSystemSchedule $entity
+    //  */    
+    // foreach($entities as $entity){
+    //   $schedules = $entity->get("schedule")->getValue(); 
+    //   /**
+    //   *
+    //   * @var \Drupal\booking_system\Plugin\Field\FieldType\ScheduleItem $schedule
+    //   */
+    //   foreach($schedules as $schedule){      
+    //     $datas[] = $schedule;
+    //   }
+    // }
 
     return $periods;
   }
@@ -327,7 +327,7 @@ class BookingManagerService extends ControllerBase
     
     $period_index = 0;
     //start verifications
-
+    dump($reservation);
     if('integer' != gettype($reservation['reservation_reduction'])){
       throw new \Exception($text_to_throw." reduction");
     }
