@@ -6,6 +6,7 @@ use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\booking_system\Entity\BookingReservation;
+use Entity;
 use Google\Service\Kgsearch\Resource\Entities;
 
 /**
@@ -289,11 +290,11 @@ class BookingManagerService extends ControllerBase
       $this->reservationIsValid($reservation);
       $reservation = BookingReservation::create([
         // 'entity_id' => '',
-        'number_of_places' => '',
-        'time_of_reservation' => '',
-        'periode_name' => '',
-        'reservation_date' => '',
-        'reservation_reduction' => '',
+        'number_of_places' => $reservation['number_of_places'],
+        'time_of_reservation' => $reservation['time_of_reservation'],
+        'periode_name' => $reservation['periode_name'],
+        'reservation_date' => $reservation['reservation_date'],
+        'reservation_reduction' => $reservation['reservation_reduction'],
       ]);
       return $reservation->save();
     }
@@ -381,5 +382,32 @@ class BookingManagerService extends ControllerBase
     return $status;
   }
 
-
+  /**
+   * {@inheritdoc}
+   * get how many seats left to be reserved in an hour of a day
+   */
+  function getSeats($day, $hour){
+    $config = $this->config('booking_system.settings')->getRawData();
+    $data["number"] = (int) $config["number_of_persons"];
+    $entities = $this->em->getStorage('booking_reservation')->loadMultiple(); //getQuery permet de construire une requête
+    $today = strtotime('today');
+    /**
+     *
+     * @var \Drupal\booking_system\Entity\BookingReservation $entity
+     */
+    foreach($entities as $entity){
+      
+      $reservation_date = $entity->get("reservation_date")->getValue();
+      $time_of_reservation = $entity->get("time_of_reservation")->getValue();
+      
+      if ($reservation_date && $time_of_reservation) {
+        $reservation_date = $reservation_date[0]['value'];
+        $time_of_reservation = $time_of_reservation[0]['value'];
+        if($reservation_date == $day && $time_of_reservation == $hour){
+          $data["number"] -= (int)$entity->get("number_of_places")->getValue()[0]['value'];
+        }
+      }
+    }
+    return $data;
+  }
 }

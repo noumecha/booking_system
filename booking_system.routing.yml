@@ -44,6 +44,15 @@ booking_system.date.schedule:
   requirements:
     _permission: 'access content'
 
+# route for available seats
+booking_system.date.schedule.seats:
+  path: '/booking-system/dates/{day}/{hour}'
+  defaults:
+    _title: 'Booking System available seats'
+    _controller: '\Drupal\booking_system\Controller\BookingSystemController::getSeatsNumber'
+  requirements:
+    _permission: 'access content'
+
 # for config pages
 booking_system.simple_page:
   path: '/admin/config/system/booking-system'

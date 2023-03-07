@@ -117,7 +117,18 @@ class BookingSystemController extends ControllerBase
       return new JsonResponse($data, Response::HTTP_OK);
   }
 
-
+  /**
+   *{@inheritdoc}
+   *return the the number of seat left
+   */
+  public function getSeatsNumber($day, $hour){
+    $day = (int) $day;
+    $data = $this->manager->getSeats($day, $hour);
+    if(isset($data['error'])) {
+      return new JsonResponse($data, Response::HTTP_BAD_REQUEST);
+    }
+    return HttpResponse::response($data);
+  }
   /**
    * @inheritdoc
    */
