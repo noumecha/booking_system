@@ -327,7 +327,6 @@ class BookingManagerService extends ControllerBase
     
     $period_index = 0;
     //start verifications
-    dump($reservation);
     if('integer' != gettype($reservation['reservation_reduction'])){
       throw new \Exception($text_to_throw." reduction");
     }
