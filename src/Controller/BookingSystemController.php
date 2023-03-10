@@ -88,7 +88,6 @@ class BookingSystemController extends ControllerBase
          * @var array $reservation
          */
         $reservation = Json::decode($request->getContent());
-        //$reservation['note'] = 1;
         $datas = $this->manager->setRerservations($reservation);
         return HttpResponse::response($datas);
       }

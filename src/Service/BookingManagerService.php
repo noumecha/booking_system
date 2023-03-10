@@ -7,6 +7,7 @@ use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\booking_system\Entity\BookingReservation;
 use Entity;
+use Google\Service\CloudComposer\ScheduledSnapshotsConfig;
 use Google\Service\Kgsearch\Resource\Entities;
 
 /**
@@ -137,14 +138,14 @@ class BookingManagerService extends ControllerBase
       foreach($temp as $hour){
         $time_hour = strtotime($hour) - strtotime("today");
         $state = $this->periodIsValid($day, $time_hour, $time_hour + $period['intervalle']*60, $period['decallage'], $period['intervalle']);
-        $state = $this->getSeats($day, $hour)['number'] && $state==true? true: false;
+        $state = $this->getSeats($day, $hour)['number'] >= 1 && $state==true? true: false;
         $dayPeriod["times"][]= [
           'hour' => $hour,
           'status' => $state,
         ]; 
       }
 
-      $periods[] = $dayPeriod;
+      $periods[] = $dayPeriod;  
     }
     // $datas = [];
     // //range of hours to disabled
@@ -307,7 +308,7 @@ class BookingManagerService extends ControllerBase
    * @throws \Exception
    * set the reservations
    */
-
+  
   public function reservationIsValid(array $reservation){
     $schedules = $this->generateSchdules($reservation['reservation_date']);
     $text_to_throw = 'Invalids datas';
@@ -323,28 +324,29 @@ class BookingManagerService extends ControllerBase
     $period_exist = false;
 
     $period_name = $reservation['periode_name'];
-    //Store the index of the period in which we wish to make a reservation
     
-    $period_index = 0;
     //start verifications
     if('integer' != gettype($reservation['reservation_reduction'])){
-      throw new \Exception($text_to_throw." reduction");
+      throw new \Exception($text_to_throw.". Discout value not valid");
     }
-
+    
     if('integer' != gettype($reservation['number_of_places'])){
-      throw new \Exception($text_to_throw." place");
+      throw new \Exception($text_to_throw.". Seats number not valid");
     }
-
-    foreach($schedules as $period){
+    $valid_dates = $this->generateDisabledDates();
+    if(in_array($reservation["reservation_date"], $valid_dates)){
+      throw new \Exception($text_to_throw.". Date not valid");
+    }
+    foreach($schedules as $period){ 
       if($period["name"] == $period_name){
         $period_exist = true;
         break;
       }
-      $period_index +=1;
+
     }
 
     if(!$period_exist){
-      throw new \Exception($text_to_throw." period");
+      throw new \Exception($text_to_throw." Period name not valid");
     }
 
     foreach($schedules as $period){
@@ -355,7 +357,10 @@ class BookingManagerService extends ControllerBase
     }
 
     if(!$hour_exist){
-      throw new \Exception($text_to_throw." hour");
+      throw new \Exception($text_to_throw.". Given hour not valid");
+    }
+    if($this->getSeats($reservation['reservation_date'], $reservation['time_of_reservation'])['number'] < $reservation['number_of_places']){
+      throw new \Exception($text_to_throw.". (number of seat) Given number of seats > number of seats available");
     }
     return true;
   }
