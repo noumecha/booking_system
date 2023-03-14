@@ -1,48 +1,55 @@
 booking_system.settings_form:
-  title: 'booking_system'
-  description: 'Configure booking_system.'
+  title: "booking_system"
+  description: "Configure booking_system."
   parent: system.admin_config_system
   route_name: booking_system.settings_form
   weight: 10
 
 # Booking system date menu items definition
 entity.booking_system_date.collection:
-  title: 'Booking system date list'
+  title: "Booking system date list"
   route_name: entity.booking_system_date.collection
-  description: 'List Booking system date entities'
+  description: "List Booking system date entities"
   parent: system.admin_structure
   weight: 100
 
 booking_system_date.admin.structure.settings:
-  title: 'Booking system date settings'
-  description: 'Configure Booking system date entities'
+  title: "Booking system date settings"
+  description: "Configure Booking system date entities"
   route_name: booking_system_date.settings
   parent: system.admin_structure
 
 # Booking system schedule menu items definition
 entity.booking_system_schedule.collection:
-  title: 'Booking system schedule list'
+  title: "Booking system schedule list"
   route_name: entity.booking_system_schedule.collection
-  description: 'List Booking system schedule entities'
+  description: "List Booking system schedule entities"
   parent: system.admin_structure
   weight: 100
 
 booking_system_schedule.admin.structure.settings:
-  title: 'Booking system schedule settings'
-  description: 'Configure Booking system schedule entities'
+  title: "Booking system schedule settings"
+  description: "Configure Booking system schedule entities"
   route_name: booking_system_schedule.settings
   parent: system.admin_structure
 
 # Booking reservation menu items definition
 entity.booking_reservation.collection:
-  title: 'Booking reservation list'
+  title: "Booking reservation list"
   route_name: entity.booking_reservation.collection
-  description: 'List Booking reservation entities'
+  description: "List Booking reservation entities"
   parent: system.admin_structure
   weight: 100
 
 booking_reservation.admin.structure.settings:
-  title: 'Booking reservation settings'
-  description: 'Configure Booking reservation entities'
+  title: "Booking reservation settings"
+  description: "Configure Booking reservation entities"
   route_name: booking_reservation.settings
   parent: system.admin_structure
+
+booking_system.settings_form_translate:
+  title: "booking_system_translation"
+  description: "translation booking_system."
+  parent: system.admin_config_system
+  route_name: booking_system.translate
+  weight: 10

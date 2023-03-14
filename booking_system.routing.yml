@@ -1,72 +1,90 @@
 # just for testing purposes
 booking_system.example:
-  path: '/booking-system/example'
+  path: "/booking-system/example"
   defaults:
-    _title: 'Example'
+    _title: "Example"
     _controller: '\Drupal\booking_system\Controller\BookingSystemController::build'
   requirements:
-    _permission: 'access content'
-# get user reservation : 
+    _permission: "access content"
+# get user reservation :
 booking_system.reservation:
-  path: '/booking-system/set-reservation'
+  path: "/booking-system/set-reservation"
   defaults:
-    _title: 'Reservation'
+    _title: "Reservation"
     _controller: '\Drupal\booking_system\Controller\BookingSystemController::setReservation'
   requirements:
-    _user_is_logged_in: 'TRUE'  
+    _user_is_logged_in: "TRUE"
   options:
-    _auth: ['basic_auth', 'cookie']
+    _auth: ["basic_auth", "cookie"]
 
-# start the vues-js app : 
+# start the vues-js app :
 booking_system.app:
-  path: '/booking-system/page'
+  path: "/booking-system/page"
   defaults:
-    _title: 'Application de reservation'
+    _title: "Application de reservation"
     _controller: '\Drupal\booking_system\Controller\BookingSystemController::build'
   requirements:
-    _permission: 'access content'
+    _permission: "access content"
 
 # for Booking System Date Controller
 booking_system.date:
-  path: '/booking-system/dates'
+  path: "/booking-system/dates"
   defaults:
-    _title: 'Booking System Date'
+    _title: "Booking System Date"
     _controller: '\Drupal\booking_system\Controller\BookingSystemController::dates'
   requirements:
-    _permission: 'access content'
+    _permission: "access content"
 
 # route for schedules
 booking_system.date.schedule:
-  path: '/booking-system/dates/{day}'
+  path: "/booking-system/dates/{day}"
   defaults:
-    _title: 'Booking System Day'
+    _title: "Booking System Day"
     _controller: '\Drupal\booking_system\Controller\BookingSystemController::schedule'
   requirements:
-    _permission: 'access content'
+    _permission: "access content"
 
 # route for available seats
 booking_system.date.schedule.seats:
-  path: '/booking-system/dates/{day}/{hour}'
+  path: "/booking-system/dates/{day}/{hour}"
   defaults:
-    _title: 'Booking System available seats'
+    _title: "Booking System available seats"
     _controller: '\Drupal\booking_system\Controller\BookingSystemController::getSeatsNumber'
   requirements:
-    _permission: 'access content'
+    _permission: "access content"
 
 # for config pages
 booking_system.simple_page:
-  path: '/admin/config/system/booking-system'
+  path: "/admin/config/system/booking-system"
   defaults:
-    _title: 'Form Settings'
+    _title: "Form Settings"
     _controller: '\Drupal\booking_system\Form\SettingsForm'
   requirements:
-    _permission: 'access content'
+    _permission: "access content"
 
 # for gobal config booking system
 booking_system.settings_form:
-  path: '/admin/config/system/booking-system'
+  path: "/admin/config/system/booking-system"
   defaults:
-    _title: 'Booking System Settings'
+    _title: "Booking System Settings"
     _form: 'Drupal\booking_system\Form\SettingsForm'
   requirements:
-    _permission: 'administer booking_system configuration'
+    _permission: "administer booking_system configuration"
+
+# for config calendar
+booking_system.translate:
+  path: "/admin/config/system/booking-system-calendar"
+  defaults:
+    _title: "Form Translate Settings"
+    _form: 'Drupal\booking_system\Form\SettingsTranslateForm'
+  requirements:
+    _permission: "administer booking_system configuration"
+
+#for test
+booking_system.test:
+  path: "/booking-system/test"
+  defaults:
+    _title: "Booking System Test route"
+    _controller: '\Drupal\booking_system\Controller\BookingSystemController::test_rout'
+  requirements:
+    _permission: "access content"
