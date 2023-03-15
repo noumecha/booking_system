@@ -60,7 +60,7 @@ class BookingManagerService extends ControllerBase
   {
     $default_config = \Drupal\booking_system\StepsSettingsInterface::DEFAULT_CONFIG;
     $configs = $this->config('booking_system_translate.settings')->getRawData();
-    $data = [];
+    $datas = [];
     $datas['tab1'] = isset($configs['tab1']) ? $configs['tab1'] :
       [
         'months_config' => $default_config['months_config'],

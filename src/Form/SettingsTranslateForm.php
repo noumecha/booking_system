@@ -36,11 +36,7 @@ class SettingsTranslateForm  extends ConfigFormBase implements StepsSettingsInte
     $config = $this->config('booking_system_translate.settings')->getRawData();
     //load default configuration from the settings interface
     $default_config = \Drupal\booking_system\StepsSettingsInterface::DEFAULT_CONFIG;
-    //dump($jours);
-    /*if (!empty($this->config('booking_system.settings')->get('jours'))) {
-      $jours = $this->config('booking_system.settings')->get('jours');
-    }*/
-    //Configurations steps
+
     $form['tabs'] = [
       '#type' => 'vertical_tabs',
       '#title' => t('Steps Configuration'),
@@ -56,9 +52,19 @@ class SettingsTranslateForm  extends ConfigFormBase implements StepsSettingsInte
 
     foreach ($default_config['steps_labels'] as $index => $value) {
       $form['steps_labels'][$index] = [
-        '#type' => 'textfield',
+        '#type' => 'details',
         '#title' => $index,
-        '#default_value' => isset($config['steps_labels'][$index]) ? $config['steps_labels'][$index] : $value,
+        '#tree' => True,
+      ];
+      $form['steps_labels'][$index]['name'] = [
+        '#type' => 'textfield',
+        '#title' => t('label'),
+        '#default_value' => isset($config['steps_labels'][$index]['name']) ? $config['steps_labels'][$index]['name'] : $value['name'],
+      ];
+      $form['steps_labels'][$index]['title'] = [
+        '#type' => 'textfield',
+        '#title' => t('label'),
+        '#default_value' => isset($config['steps_labels'][$index]['title']) ? $config['steps_labels'][$index]['title'] : $value['title'],
       ];
     }
 
@@ -113,7 +119,7 @@ class SettingsTranslateForm  extends ConfigFormBase implements StepsSettingsInte
       '#group' => 'tabs',
       '#tree'  => True,
     ];
-    foreach ($default_config['report_configs'] as $index => $value) {
+    foreach ($default_config['report_configs']['messages'] as $index => $value) {
       $form['report'][$index] = [
         '#type' => 'details',
         '#title' => $index . ' Configs',
@@ -130,6 +136,26 @@ class SettingsTranslateForm  extends ConfigFormBase implements StepsSettingsInte
         '#default_value' => isset($config['report'][$index]['resume']) ? $config['report'][$index]['resume'] : $value['resume'],
       ];
     }
+    $form['report']['call_to_action'] = [
+      '#type' => 'textfield',
+      '#title' => t('call_to_action'),
+      '#default_value' => isset($config['report']['call_to_action']) ? $config['report']['call_to_action'] : $default_config['report_configs']['call_to_action'],
+    ];
+    $form['report']['user_state'] = [
+      '#type' => 'details',
+      '#title' => t('user_state'),
+      '#tree' => True,
+    ];
+    $form['report']['user_state']['online'] = [
+      '#type' => 'textfield',
+      '#title' => t('user_state_online'),
+      '#default_value' => isset($config['report']['user_state']) ? $config['report']['user_state'] : $default_config['report_configs']['user_state']['online'],
+    ];
+    $form['report']['user_state']['offline'] = [
+      '#type' => 'textfield',
+      '#title' => t('user_state_offline'),
+      '#default_value' => isset($config['report']['user_state']) ? $config['report']['user_state'] : $default_config['report_configs']['user_state']['offline'],
+    ];
     return parent::buildForm($form, $form_state);
   }
 

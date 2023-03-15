@@ -48,22 +48,43 @@ interface StepsSettingsInterface /*extends PluginInspectionInterface*/
       'label_help' => 'Utilisez les touches du curseur pour naviguer dans les dates du calendrier',
     ],
     'steps_labels' => [
-      'step_one_title' => 'Reservation Date',
-      'step_two_title' => 'Reservation Hour',
-      'step_three_title' => 'Number of seats',
-      'step_four_title' => 'Booking summary',
-      'step_five_title' => 'Operation report',
+      'step_one' => [
+        'name' => 'Reservation Date',
+        'title' => 'Choose a booking date',
+      ],
+      'step_two' => [
+        'name' => 'Reservation Hour',
+        'title' => 'Choose a time',
+      ],
+      'step_three' => [
+        'name' => 'Number of seats',
+        'title' => 'Choose the number of places',
+      ],
+      'step_four' => [
+        'name' => 'Booking summary',
+        'title' => 'Reservation report',
+      ],
+      'step_five' => [
+        'name' => 'Operation report',
+        'title' => '',
+      ]
     ],
     'report_configs' => [
-      'success' => [
-        'message' => 'Success',
-        'resume'  => 'yay, everything is working.'
+      'messages' => [
+        'success' => [
+          'message' => 'Success',
+          'resume'  => 'yay, everything is working.'
+        ],
+        'error' => [
+          'message' => 'Error',
+          'resume'  => 'oh no, something went wrong.'
+        ],
       ],
-      'error' => [
-        'message' => 'Error',
-        'resume'  => 'oh no, something went wrong.'
+      'user_state' => [
+        'online' => 'User Online',
+        'offline' => 'User Offline'
       ],
-
+      'call_to_action' => 'Book Now'
     ]
   ];
 }
