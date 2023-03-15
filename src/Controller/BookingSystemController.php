@@ -67,6 +67,7 @@ class BookingSystemController extends ControllerBase
 
       $data = $this->manager->generateDates();
       $data['disabledDates'] = $this->manager->generateDisabledDates();
+      $data['configs'] = $this->manager->get_steps_configs();
       return HttpResponse::response($data);
     } catch (\Exception $e) {
       $errors = ExceptionExtractMessage::errorAll($e);
@@ -143,6 +144,6 @@ class BookingSystemController extends ControllerBase
   }
   public function test_rout()
   {
-    return HttpResponse::response($this->manager->test_fonction());
+    return HttpResponse::response($this->manager->get_steps_configs());
   }
 }

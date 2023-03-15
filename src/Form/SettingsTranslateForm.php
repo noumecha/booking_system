@@ -34,8 +34,7 @@ class SettingsTranslateForm  extends ConfigFormBase implements StepsSettingsInte
   public function buildForm(array $form, FormStateInterface $form_state)
   {
     $config = $this->config('booking_system_translate.settings')->getRawData();
-    /* You will need additional form elements for your custom properties. */
-    $jours = \Drupal\booking_system\DaysSettingsInterface::DAYS;
+    //load default configuration from the settings interface
     $default_config = \Drupal\booking_system\StepsSettingsInterface::DEFAULT_CONFIG;
     //dump($jours);
     /*if (!empty($this->config('booking_system.settings')->get('jours'))) {
@@ -44,11 +43,11 @@ class SettingsTranslateForm  extends ConfigFormBase implements StepsSettingsInte
     //Configurations steps
     $form['tabs'] = [
       '#type' => 'vertical_tabs',
-      '#title' => t('Configurations des étapes'),
+      '#title' => t('Steps Configuration'),
       '#default_tab' => 'edit-publication',
     ];
 
-    $form['tab0'] = [
+    $form['steps_labels'] = [
       '#type' => 'details',
       '#title' => t('titles configurations'),
       '#group' => 'tabs',
@@ -56,10 +55,10 @@ class SettingsTranslateForm  extends ConfigFormBase implements StepsSettingsInte
     ];
 
     foreach ($default_config['steps_labels'] as $index => $value) {
-      $form['tab0'][$index] = [
+      $form['steps_labels'][$index] = [
         '#type' => 'textfield',
         '#title' => $index,
-        '#default_value' => isset($config['tab0'][$index]) ? $config['tab0'][$index] : $value,
+        '#default_value' => isset($config['steps_labels'][$index]) ? $config['steps_labels'][$index] : $value,
       ];
     }
 
@@ -75,11 +74,11 @@ class SettingsTranslateForm  extends ConfigFormBase implements StepsSettingsInte
       '#title' => 'Months configurations',
       '#tree' => TRUE
     ];
-    for ($i = 0; $i < sizeof($default_config['months']); $i++) {
-      $form['tab1']['months_config']['months' . ($i + 1)] = [
+    for ($i = 0; $i < sizeof($default_config['months_config']); $i++) {
+      $form['tab1']['months_config'][$i] = [
         '#type' => 'textfield',
         '#title' => t('label month ' . $i),
-        '#default_value' => isset($config['tab1']['months_config']['month' . ($i + 1)]) ? $config['tab1']['months_config']['months' . ($i + 1)] : $default_config['months'][$i],
+        '#default_value' => isset($config['tab1']['months_config'][$i]) ? $config['tab1']['months_config'][$i] : $default_config['months_config'][$i],
       ];
     }
     $form['tab1']['weeks_config'] = [
@@ -87,11 +86,11 @@ class SettingsTranslateForm  extends ConfigFormBase implements StepsSettingsInte
       '#title' => 'Weeks configurations',
       '#tree' => TRUE
     ];
-    for ($i = 0; $i < sizeof($default_config['week_days']); $i++) {
-      $form['tab1']['weeks_config']['day' . ($i + 1)] = [
+    for ($i = 0; $i < sizeof($default_config['weeks_config']); $i++) {
+      $form['tab1']['weeks_config'][$i] = [
         '#type' => 'textfield',
         '#title' => t('label'),
-        '#default_value' => isset($config['tab1']['weeks_config']['day' . ($i + 1)]) ? $config['tab1']['weeks_config']['day' . ($i + 1)] : $default_config['week_days'][$i],
+        '#default_value' => isset($config['tab1']['weeks_config'][$i]) ? $config['tab1']['weeks_config'][$i] : $default_config['weeks_config'][$i],
       ];
     }
     $form['tab1']['labels_config'] = [
@@ -99,11 +98,36 @@ class SettingsTranslateForm  extends ConfigFormBase implements StepsSettingsInte
       '#title' => 'Calendar Labels',
       '#tree' => TRUE
     ];
-    foreach ($default_config['labels'] as $index => $value) {
+    foreach ($default_config['labels_config'] as $index => $value) {
       $form['tab1']['labels_config'][$index] = [
         '#type' => 'textfield',
         '#title' => t($index),
         '#default_value' => isset($config['tab1']['labels_config'][$index]) ? $config['tab1']['labels_config'][$index] : $value,
+      ];
+    }
+
+    //configuration de l'onglet rapports(tab4)
+    $form['report'] = [
+      '#type' => 'details',
+      '#title' => t('Report Configs'),
+      '#group' => 'tabs',
+      '#tree'  => True,
+    ];
+    foreach ($default_config['report_configs'] as $index => $value) {
+      $form['report'][$index] = [
+        '#type' => 'details',
+        '#title' => $index . ' Configs',
+        '#tree'  => True,
+      ];
+      $form['report'][$index]['message'] = [
+        '#type' => 'textfield',
+        '#title' => $index . ' Configs message',
+        '#default_value' => isset($config['report'][$index]['message']) ? $config['report'][$index]['message'] : $value['message'],
+      ];
+      $form['report'][$index]['resume'] = [
+        '#type' => 'textfield',
+        '#title' => $index . ' Configs resume',
+        '#default_value' => isset($config['report'][$index]['resume']) ? $config['report'][$index]['resume'] : $value['resume'],
       ];
     }
     return parent::buildForm($form, $form_state);
@@ -126,10 +150,10 @@ class SettingsTranslateForm  extends ConfigFormBase implements StepsSettingsInte
   public function submitForm(array &$form, FormStateInterface $form_state)
   {
     $this->config('booking_system_translate.settings')
-      ->set('tab0', $form_state->getValue('tab0'))
+      ->set('steps_labels', $form_state->getValue('steps_labels'))
       ->set('tab1', $form_state->getValue('tab1'))
+      ->set('report', $form_state->getValue('report'))
       ->save();
-    dump($form_state->getValue('tab0'));
     parent::submitForm($form, $form_state);
   }
 }

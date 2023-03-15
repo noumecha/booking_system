@@ -56,11 +56,20 @@ class BookingManagerService extends ControllerBase
    * {@inheritdoc}
    * 
    */
-  public function test_fonction()
+  public function get_steps_configs()
   {
+    $default_config = \Drupal\booking_system\StepsSettingsInterface::DEFAULT_CONFIG;
+    $configs = $this->config('booking_system_translate.settings')->getRawData();
     $data = [];
-    $config = $this->config('booking_system_translate.settings')->getRawData();
-    return $config;
+    $datas['tab1'] = isset($configs['tab1']) ? $configs['tab1'] :
+      [
+        'months_config' => $default_config['months_config'],
+        'weeks_config'  => $default_config['weeks_config'],
+        'labels_config' => $default_config['labels_config']
+      ];
+    $datas['steps_labels'] = isset($configs['steps_labels']) ? $configs['steps_labels'] : $default_config['steps_labels'];
+    $datas['report'] = isset($configs['report']) ? $configs['report'] : $default_config['report_configs'];
+    return $datas;
   }
   /**
    * 

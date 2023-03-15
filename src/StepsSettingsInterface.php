@@ -15,7 +15,7 @@ namespace Drupal\booking_system;
 interface StepsSettingsInterface /*extends PluginInspectionInterface*/
 {
   const DEFAULT_CONFIG = [
-    'months' => [
+    'months_config' => [
       'January',
       'Febrary',
       'March',
@@ -29,15 +29,16 @@ interface StepsSettingsInterface /*extends PluginInspectionInterface*/
       'November',
       'December',
     ],
-    'week_days' => [
+    'weeks_config' => [
       'Monday',
       'Tuesday',
+      'Wednesday',
       'Thursday',
       'Friday',
       'Saturday',
       'Sunday'
     ],
-    'labels' => [
+    'labels_config' => [
       'label_prev_year' => 'Année précédente',
       'label_prev_month' => 'Mois précédent',
       'label_current_month' => 'Mois actuel',
@@ -47,10 +48,22 @@ interface StepsSettingsInterface /*extends PluginInspectionInterface*/
       'label_help' => 'Utilisez les touches du curseur pour naviguer dans les dates du calendrier',
     ],
     'steps_labels' => [
-      'step_one_title' => 'Date de reservation',
-      'step_two_title' => 'Heure de reservation',
-      'step_three_title' => 'Nombre de places',
-      'step_four_title' => 'Bilan de la reservation',
+      'step_one_title' => 'Reservation Date',
+      'step_two_title' => 'Reservation Hour',
+      'step_three_title' => 'Number of seats',
+      'step_four_title' => 'Booking summary',
+      'step_five_title' => 'Operation report',
     ],
+    'report_configs' => [
+      'success' => [
+        'message' => 'Success',
+        'resume'  => 'yay, everything is working.'
+      ],
+      'error' => [
+        'message' => 'Error',
+        'resume'  => 'oh no, something went wrong.'
+      ],
+
+    ]
   ];
 }
