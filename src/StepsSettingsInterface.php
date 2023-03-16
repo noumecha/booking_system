@@ -73,7 +73,7 @@ interface StepsSettingsInterface /*extends PluginInspectionInterface*/
       'messages' => [
         'success' => [
           'message' => 'Success',
-          'resume'  => 'yay, everything is working.'
+          'resume'  => 'yay, everything is working.',
         ],
         'error' => [
           'message' => 'Error',
@@ -84,7 +84,8 @@ interface StepsSettingsInterface /*extends PluginInspectionInterface*/
         'online' => 'User Online',
         'offline' => 'User Offline'
       ],
-      'call_to_action' => 'Book Now'
+      'call_to_action' => 'Book Now',
+      'reset_btn_label' => 'Book again'
     ]
   ];
 }

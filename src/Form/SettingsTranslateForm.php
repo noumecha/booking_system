@@ -119,6 +119,16 @@ class SettingsTranslateForm  extends ConfigFormBase implements StepsSettingsInte
       '#group' => 'tabs',
       '#tree'  => True,
     ];
+    $form['report']['call_to_action'] = [
+      '#type' => 'textfield',
+      '#title' => t('call_to_action'),
+      '#default_value' => isset($config['report']['call_to_action']) ? $config['report']['call_to_action'] : $default_config['report_configs']['call_to_action'],
+    ];
+    $form['report']['reset_btn_label'] = [
+      '#type' => 'textfield',
+      '#title' => t('reset_btn_label'),
+      '#default_value' => isset($config['report']['reset_btn_label']) ? $config['report']['reset_btn_label'] : $default_config['report_configs']['reset_btn_label'],
+    ];
     foreach ($default_config['report_configs']['messages'] as $index => $value) {
       $form['report'][$index] = [
         '#type' => 'details',
@@ -136,11 +146,6 @@ class SettingsTranslateForm  extends ConfigFormBase implements StepsSettingsInte
         '#default_value' => isset($config['report'][$index]['resume']) ? $config['report'][$index]['resume'] : $value['resume'],
       ];
     }
-    $form['report']['call_to_action'] = [
-      '#type' => 'textfield',
-      '#title' => t('call_to_action'),
-      '#default_value' => isset($config['report']['call_to_action']) ? $config['report']['call_to_action'] : $default_config['report_configs']['call_to_action'],
-    ];
     $form['report']['user_state'] = [
       '#type' => 'details',
       '#title' => t('user_state'),
