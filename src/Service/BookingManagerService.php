@@ -68,7 +68,13 @@ class BookingManagerService extends ControllerBase
         'labels_config' => $default_config['labels_config']
       ];
     $datas['steps_labels'] = isset($configs['steps_labels']) ? $configs['steps_labels'] : $default_config['steps_labels'];
-    $datas['report'] = isset($configs['report']) ? $configs['report'] : $default_config['report_configs'];
+    $datas['report'] = isset($configs['report']) ? $configs['report'] : [
+      "call_to_action" => $default_config['report_configs']["call_to_action"],
+      "reset_btn_label" => $default_config['report_configs']["reset_btn_label"],
+      "success" => $default_config['report_configs']["messages"]["success"],
+      "error" => $default_config['report_configs']["messages"]["error"],
+      "user_state" => $default_config['report_configs']['user_state']
+    ];
     return $datas;
   }
   /**
