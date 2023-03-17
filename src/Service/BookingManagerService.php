@@ -365,6 +365,9 @@ class BookingManagerService extends ControllerBase
       throw new \Exception($text_to_throw . ". Date not valid");
     }
     foreach ($schedules as $period) {
+      if (!isset($period["name"])) {
+        throw new \Exception($text_to_throw . ". Date not valid");
+      }
       if ($period["name"] == $period_name) {
         $period_exist = true;
         break;

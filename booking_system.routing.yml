@@ -79,12 +79,11 @@ booking_system.translate:
     _form: 'Drupal\booking_system\Form\SettingsTranslateForm'
   requirements:
     _permission: "administer booking_system configuration"
-
 #for test
-booking_system.test:
-  path: "/booking-system/test"
-  defaults:
-    _title: "Booking System Test route"
-    _controller: '\Drupal\booking_system\Controller\BookingSystemController::test_rout'
-  requirements:
-    _permission: "access content"
+# booking_system.test:
+#   path: "/booking-system/test"
+#   defaults:
+#     _title: "Booking System Test route"
+#     _controller: '\Drupal\booking_system\Controller\BookingSystemController::test_rout'
+#   requirements:
+#     _permission: "access content"

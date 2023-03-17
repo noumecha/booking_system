@@ -142,8 +142,10 @@ class BookingSystemController extends ControllerBase
     ];
     return $build;
   }
-  public function test_rout()
+
+  #controller for tests
+  /* public function test_rout()
   {
     return HttpResponse::response($this->manager->get_steps_configs());
-  }
+  } */
 }
