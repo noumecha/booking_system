@@ -2,14 +2,15 @@
 
 namespace Drupal\booking_system\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Drupal\booking_system\Service\BookingManagerService;
 use Stephane888\DrupalUtility\HttpResponse;
 use Stephane888\Debug\ExceptionExtractMessage;
-
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Drupal\Component\Serialization\Json;
 
 /**
  * Returns responses for booking_system routes.
@@ -66,6 +67,7 @@ class BookingSystemController extends ControllerBase
 
       $data = $this->manager->generateDates();
       $data['disabledDates'] = $this->manager->generateDisabledDates();
+      $data['configs'] = $this->manager->get_steps_configs();
       return HttpResponse::response($data);
     } catch (\Exception $e) {
       $errors = ExceptionExtractMessage::errorAll($e);
@@ -77,9 +79,11 @@ class BookingSystemController extends ControllerBase
    * Permet de recupérer la reservation d'un utilisateur.
    *
    * @param Request $request
+   * @throws \Exception
    * @return \Symfony\Component\HttpFoundation\JsonResponse
    */
-  public function setReservation(Request $request) {
+  public function setReservation(Request $request)
+  {
     try {
       if (\Drupal::currentUser()->id()) {
         /**
@@ -87,13 +91,11 @@ class BookingSystemController extends ControllerBase
          * @var array $reservation
          */
         $reservation = Json::decode($request->getContent());
-        //$reservation['note'] = 1;
         $datas = $this->manager->setRerservations($reservation);
         return HttpResponse::response($datas);
       }
-      throw \Exception("Vous n'etes pas connecté(e)");
-    }
-    catch (\Exception $e) {
+      throw new \Exception("Vous n'etes pas connecté(e)");
+    } catch (\Exception $e) {
       $errors = ExceptionExtractMessage::errorAllToString($e);
       $this->getLogger('booking_system')->critical($e->getMessage() . '<br>' . $errors);
       return HttpResponse::response(ExceptionExtractMessage::errorAll($e), 400, $e->getMessage());
@@ -106,17 +108,29 @@ class BookingSystemController extends ControllerBase
    */
   public function schedule($day)
   {
-      $day = (int) $day;
+    $day = (int) $day;
 
-      $data = $this->manager->generateSchdules($day);
-      if (isset($data["error"])) {
-        return new JsonResponse($data, Response::HTTP_BAD_REQUEST);
-      }
+    $data = $this->manager->generateSchdules($day);
+    if (isset($data["error"])) {
+      return new JsonResponse($data, Response::HTTP_BAD_REQUEST);
+    }
 
-      return new JsonResponse($data, Response::HTTP_OK);
+    return new JsonResponse($data, Response::HTTP_OK);
   }
 
-
+  /**
+   *{@inheritdoc}
+   *return the the number of seat left
+   */
+  public function getSeatsNumber($day, $hour)
+  {
+    $day = (int) $day;
+    $data = $this->manager->getSeats($day, $hour);
+    if (isset($data['error'])) {
+      return new JsonResponse($data, Response::HTTP_BAD_REQUEST);
+    }
+    return HttpResponse::response($data);
+  }
   /**
    * @inheritdoc
    */
@@ -127,5 +141,9 @@ class BookingSystemController extends ControllerBase
       '#markup' => $this->t('Starting default page for testing purpose!'),
     ];
     return $build;
+  }
+  public function test_rout()
+  {
+    return HttpResponse::response($this->manager->get_steps_configs());
   }
 }

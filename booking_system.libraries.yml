@@ -7,7 +7,7 @@ booking_system_app:
       files/bookingSystem.css: {}
   dependencies:
     - core/drupalSettings
-    - booking_system/vuejs
+    - booking_system/vuejs_dev
 # Custom module library for general purposes.
 booking_system:
   js:
@@ -46,3 +46,14 @@ vuejs:
     gpl-compatible: true
   js:
     https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.14/vue.min.js: {type: external, minified: true, weight: -10 }
+    
+vuejs_dev:
+  remote: https://vuejs.org
+  version: 2.0.6
+  license:
+    name: MIT
+    url: https://github.com/vuejs/vue/blob/dev/LICENSE
+    gpl-compatible: true
+  js:
+    https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js: { type: external, minified: true, weight: -10 }
+    

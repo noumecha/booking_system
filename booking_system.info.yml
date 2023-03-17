@@ -1,5 +1,7 @@
 name: booking_system
 type: module
-description: &quot;for making reservation&quot;
+description: For making reservation
 package: Custom
 core_version_requirement: ^9 || ^10
+dependencies:
+  - drupal:datetime_range
